@@ -9,6 +9,7 @@ from colorama import Fore, init
 from Modules.HelpCommand import Help
 from Tools.Verify import Counter
 from Tools.Support import SupportView, StaffAppView
+from Tools.Roles import RoleView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
@@ -36,6 +37,7 @@ class TheCloud(commands.Bot):
             self.add_view(Counter(self))
             self.add_view(SupportView(self))
             self.add_view(StaffAppView(self))
+            self.add_view(RoleView(self))
             self.persistent_views_added = True
 
 
