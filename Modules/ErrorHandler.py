@@ -77,6 +77,12 @@ class CommandErrorHandler(commands.Cog):
             embed = await Fail(f'I don\'t have enough permissions to handle the {ctx.command} command.')
             view = Dismiss(ctx)
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+
+        # Trigger if use doesn't have the required role to run a command
+        elif isinstance(error, commands.MissingRole):
+            embed = await Fail(f'You don\'t have the role required to run the {ctx.command} command.')
+            view = Dismiss(ctx)
+            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
         
         # Trigger if command can't be used in dms
         elif isinstance(error, commands.NoPrivateMessage):
