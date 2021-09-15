@@ -22,7 +22,7 @@ class AgeMenu(Select):
             nextcord.SelectOption(label = "+ 18", description = "Click to get/remove this role", value = "886537714206392320"),
         ]
 
-        super().__init__(placeholder = 'Age Roles', min_values = 1, max_values = 1, options = options, custom_id = "AgeRoleMenu2000", row = 3)
+        super().__init__(placeholder = 'Age Roles...', min_values = 1, max_values = 1, options = options, custom_id = "AgeRoleMenu2000", row = 3)
 
 
     async def callback(self, interaction: nextcord.Interaction):
@@ -49,7 +49,7 @@ class SexMenu(Select):
             nextcord.SelectOption(label = "Female", description = "Click to get/remove this role", value = "886537907412815912"),
         ]
 
-        super().__init__(placeholder = 'Gender Roles', min_values = 1, max_values = 1, options = options, custom_id = "SexRoleMenu2000", row = 2)
+        super().__init__(placeholder = 'Gender Roles...', min_values = 1, max_values = 1, options = options, custom_id = "SexRoleMenu2000", row = 2)
 
 
     async def callback(self, interaction: nextcord.Interaction):
@@ -80,7 +80,7 @@ class InterestMenu(Select):
             nextcord.SelectOption(label = "Singing", description = "Click to get/remove this role", value = "886539873631211520"),
         ]
 
-        super().__init__(placeholder = 'Interest Roles', min_values = 1, max_values = 1, options = options, custom_id = "InterestRoleMenu2000", row = 1)
+        super().__init__(placeholder = 'Interest Roles...', min_values = 1, max_values = 1, options = options, custom_id = "InterestRoleMenu2000", row = 1)
 
 
     async def callback(self, interaction: nextcord.Interaction):
@@ -109,7 +109,7 @@ class PingMenu(Select):
             nextcord.SelectOption(label = "Chat Revive", description = "Click to get/remove this role", value = "886540760583901185")
         ]
 
-        super().__init__(placeholder = 'Mention Roles', min_values = 1, max_values = 1, options = options, custom_id = "PingRoleMenu2000", row = 0)
+        super().__init__(placeholder = 'Mention Roles...', min_values = 1, max_values = 1, options = options, custom_id = "PingRoleMenu2000", row = 0)
 
 
     async def callback(self, interaction: nextcord.Interaction):
@@ -141,7 +141,7 @@ class RoleView(View):
         self.add_item(PingMenu(bot))
     
 
-    @button(label = 'Clear Roles', style = nextcord.ButtonStyle.red, custom_id = "ClearRoleButton2000", row = 4)
+    @button(label = 'Remove current Profile Roles', style = nextcord.ButtonStyle.red, custom_id = "ClearRoleButton2000", row = 4)
     async def  clear(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         Guild = self.bot.get_guild(886521228586803210)
 
@@ -160,7 +160,7 @@ class RoleView(View):
         except: pass
     
 
-    @button(label = 'List Roles', style = nextcord.ButtonStyle.blurple, custom_id = "ListRoleButton2000", row = 4)
+    @button(label = 'List of current Profile Roles', style = nextcord.ButtonStyle.blurple, custom_id = "ListRoleButton2000", row = 4)
     async def  list(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         Guild = self.bot.get_guild(886521228586803210)
 
