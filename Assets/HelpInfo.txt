@@ -1,0 +1,21 @@
+**How to use the bot?**
+
+The bot works with a simple prefix. Currently, its set to `!`. 
+You can send this prefix followed by a command word in the chat to trigger commands.
+
+Eg: *`!help`*
+
+Commands can have arguments too!
+
+Eg: *`!help apply`*
+
+When using the help command, make sure of the following.
+
+```md
+# < arg >
+- Required
+# [ arg ]
+- Optional
+# [ arg... ]
+- Can include multiple words
+```

@@ -1,0 +1,5 @@
+# Ignore Env Variables
+.Env
+
+# Ignore cache
+__pycache__/

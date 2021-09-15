@@ -1,0 +1,92 @@
+{
+    "Questions": [
+        {
+            "Name": "Question [ One ]",
+            "Description": "Why do you want to be a member of your staff team?",
+            "Options": [
+                {
+                    "Name": "Just cuz... Why not",
+                    "Description": "I want to be a member of the staff team for the role"
+                },
+                {
+                    "Name": "To help improve the server",
+                    "Description": "To make changes to the discord and minecraft servers"
+                },
+                {
+                    "Name": "To help the current staff team with handling the members",
+                    "Description": "To help the existing members of the staff team"
+                },
+                {
+                    "Name": "Other",
+                    "Description": "Any other reason you want to be a part of the staff team."
+                }
+            ]
+        },
+        {
+            "Name": "Question [ Two ]",
+            "Description": "When you're appointed as staff, what is the first thing you want to do?",
+            "Options": [
+                {
+                    "Name": "Start moderating the chats",
+                    "Description": "Check if someone is breaking any rules. And moderate the server"
+                },
+                {
+                    "Name": "Ask the owners and add new features to the server",
+                    "Description": "Try to make changes to the actual server itself."
+                },
+                {
+                    "Name": "Moderate the minecraft server",
+                    "Description": "Moderate the minecraft server, like checking for cheaters, etc"
+                },
+                {
+                    "Name": "Other",
+                    "Description": "Any other thing you want to do by being staff member"
+                }
+            ]
+        },
+        {
+            "Name": "Question [ Three ]",
+            "Description": "How much moderator experience do you have?",
+            "Options": [
+                {
+                    "Name": "Less than a  year",
+                    "Description": "You have less than a year of experience"
+                },
+                {
+                    "Name": "1 Year +",
+                    "Description": "You have more than a year of experience"
+                },
+                {
+                    "Name": "2 Years +",
+                    "Description": "You have over 2 years of experience"
+                },
+                {
+                    "Name": "Other",
+                    "Description": "My experience isn't included above"
+                }
+            ]
+        },
+        {
+            "Name": "Question [ Four ]",
+            "Description": "How long have you been on discord?",
+            "Options": [
+                {
+                    "Name": "Less than a  year",
+                    "Description": "You have less than a year of discord age"
+                },
+                {
+                    "Name": "1 Year +",
+                    "Description": "You have more than a year of discord age"
+                },
+                {
+                    "Name": "2 Years +",
+                    "Description": "You have more than 2 years of discord age"
+                },
+                {
+                    "Name": "Other",
+                    "Description": "My time on discord isn't included above"
+                }
+            ]
+        }
+    ]
+}
