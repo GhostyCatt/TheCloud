@@ -25,12 +25,12 @@ class Roles(commands.Cog):
         await ctx.channel.trigger_typing()
         
         # Create embed
-        embed = await Custom("Self Roles", f"Use the dropdowns below to get/remove roles from yourself!")
+        embed = await Custom("Self Roles", f"Use the dropdowns below to get/remove roles from yourself, or click the buttons to clear all your profile roles!")
         embed.set_footer(text = "Note: If the bot is offline, this buttons won't respond.")
         
         # Send message with counter
         view = RoleView(self.bot)
-        view.response = await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send("Self Roles", embed = embed, view = view)
 
 
 # Setup the bot

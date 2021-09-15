@@ -152,7 +152,9 @@ class RoleView(View):
             886540581004795904, 886540636168282132, 886540681663873065, 886540760583901185
         ]
 
-        for RoleID in RoleIDS:
-            Role = Guild.get_role(RoleID)
-            if Role in interaction.user.roles:
-                await interaction.user.remove_roles(Role)
+        try:
+            for RoleID in RoleIDS:
+                Role = Guild.get_role(RoleID)
+                if Role in interaction.user.roles:
+                    await interaction.user.remove_roles(Role)
+        except: pass
