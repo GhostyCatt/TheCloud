@@ -1,8 +1,8 @@
 {
     "Questions": [
         {
-            "Name": "Question [ One ]",
-            "Description": "Why do you want to be a member of your staff team?",
+            "Name": "Reason",
+            "Description": "Why do you want to be a member of our staff team?",
             "Options": [
                 {
                     "Name": "Just cuz... Why not",
@@ -23,7 +23,7 @@
             ]
         },
         {
-            "Name": "Question [ Two ]",
+            "Name": "Your To-Do List",
             "Description": "When you're appointed as staff, what is the first thing you want to do?",
             "Options": [
                 {
@@ -45,7 +45,7 @@
             ]
         },
         {
-            "Name": "Question [ Three ]",
+            "Name": "Experience",
             "Description": "How much moderator experience do you have?",
             "Options": [
                 {
@@ -67,7 +67,7 @@
             ]
         },
         {
-            "Name": "Question [ Four ]",
+            "Name": "Discord Age",
             "Description": "How long have you been on discord?",
             "Options": [
                 {
@@ -85,6 +85,59 @@
                 {
                     "Name": "Other",
                     "Description": "My time on discord isn't included above"
+                }
+            ]
+        },
+        {
+            "Name": "Availability",
+            "Description": "Every day, roughly how much time will you spend on our server?s",
+            "Options": [
+                {
+                    "Name": "1hr +",
+                    "Description": "You can spend an hour moderating our servers"
+                },
+                {
+                    "Name": "2hr +",
+                    "Description": "You can spend 2 - 4 hours moderating"
+                },
+                {
+                    "Name": "5hr +",
+                    "Description": "You're a no-life and have wayy too much free time"
+                },
+                {
+                    "Name": "Other",
+                    "Description": "My time on discord isn't included above"
+                }
+            ]
+        },
+        {
+            "Name": "Ownership",
+            "Description": "Are you an owner of any other discord server(s)?",
+            "Options": [
+                {
+                    "Name": "Yes",
+                    "Description": "Yes, I own my own discord server!"
+                },
+                {
+                    "Name": "No",
+                    "Description": "No, I don't own my own discord server!"
+                }
+            ]
+        },
+        {
+            "Name": "Our Rules",
+            "Description": "Do you completely content with the rules we currently have?",
+            "Options": [
+                {
+                    "Name": "Yes",
+                    "Description": "Yes, I am"
+                },{
+                    "Name": "Kinda",
+                    "Description": "Yes, I am BUT i want to make some changes!"
+                },
+                {
+                    "Name": "No",
+                    "Description": "No, I don't"
                 }
             ]
         }

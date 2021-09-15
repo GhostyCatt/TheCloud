@@ -31,7 +31,7 @@ class Dropdown(Select):
 # Button array for the main help command embed
 class QuestionView(View):
     def __init__(self, ctx, options:list):
-        super().__init__(timeout = 60)
+        super().__init__(timeout = 180)
 
         self.response = None
         self.ctx = ctx

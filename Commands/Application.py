@@ -40,8 +40,20 @@ class StaffApp(commands.Cog):
         """Start a staff application"""
         await ctx.channel.trigger_typing()
 
+        await ctx.message.delete()
+
+        if isinstance(ctx.channel, nextcord.TextChannel):
+            await Fail("You can't use this command here!", ctx)
+            return
+            
+        if ctx.channel.parent_id != Options['Channels']['Application']:
+            await Fail("You can't use this command here!", ctx)
+            return
+
         with open('Config/Application.json', 'r') as RawQuestions:
             Questions = json.load(RawQuestions)['Questions']
+
+        await Success("Your staff application is starting, you have `2 mins` to answer all these questions, good luck!", ctx)
 
         for Question in Questions:
             embed = await Custom(
