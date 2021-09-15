@@ -3,6 +3,3 @@
 
 # Ignore cache
 __pycache__/
-
-# Ignore Assets (As they are server specific and may include secrets)
-Assets/
