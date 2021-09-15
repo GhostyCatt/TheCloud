@@ -49,6 +49,7 @@ init(autoreset = True)
 extensions = [
     # Events #
     "Events.Greetings",
+    "Events.onMessage",
 
     # Commands #
     "Commands.Verify",
