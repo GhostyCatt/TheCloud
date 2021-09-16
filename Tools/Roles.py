@@ -1,4 +1,5 @@
 # Library Imports
+from os import execl
 import nextcord, json
 from nextcord.ui import button, View, Select
 
@@ -156,12 +157,12 @@ class RoleView(View):
             886540581004795904, 886540636168282132, 886540681663873065, 886540760583901185
         ]
 
-        try:
-            for RoleID in RoleIDS:
-                Role = Guild.get_role(RoleID)
-                if Role in interaction.user.roles:
-                    await interaction.user.remove_roles(Role)
-        except: pass
+        
+        for RoleID in RoleIDS:
+            Role = Guild.get_role(RoleID)
+            if Role in interaction.user.roles:
+                try: await interaction.user.remove_roles(Role)
+                except: pass
     
 
     @button(label = 'List of current Profile Roles', style = nextcord.ButtonStyle.blurple, custom_id = "ListRoleButton2000", row = 4)
