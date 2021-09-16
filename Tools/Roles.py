@@ -35,9 +35,10 @@ class AgeMenu(Select):
 
             else:
                 await interaction.user.add_roles(Role)
+            await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        await interaction.response.edit_message(embed = interaction.message.embeds[0])
+        
 
 
 class SexMenu(Select):
@@ -62,9 +63,10 @@ class SexMenu(Select):
 
             else:
                 await interaction.user.add_roles(Role)
+            await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        await interaction.response.edit_message(embed = interaction.message.embeds[0])
+        
 
 
 class InterestMenu(Select):
@@ -93,9 +95,10 @@ class InterestMenu(Select):
 
             else:
                 await interaction.user.add_roles(Role)
+            await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        await interaction.response.edit_message(embed = interaction.message.embeds[0])
+        
 
 
 class PingMenu(Select):
@@ -122,9 +125,10 @@ class PingMenu(Select):
 
             else:
                 await interaction.user.add_roles(Role)
+            await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        await interaction.response.edit_message(embed = interaction.message.embeds[0])
+        
 
 
 # Button array 
