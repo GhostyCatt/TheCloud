@@ -71,7 +71,7 @@ async def Log(text:str, ctx:commands.Context) -> nextcord.Message:
     channel = ctx.guild.get_channel(Options['Channels']['Log'])
 
     message = await channel.send(embed = embed)
-    message.add_reaction("🌟")
+    await message.add_reaction("❄️")
     return message
 
 
