@@ -139,6 +139,33 @@ class Admin(commands.Cog):
         await Log(f"`{user}` was kicked by {ctx.author.mention} for `{reason}`", ctx)
 
 
+    @commands.command(name = "Rules", aliases = ["Rule"])
+    @commands.has_permissions(manage_messages = True)
+    @commands.cooldown(1, 10, commands.BucketType.member)
+    async def  rules(self, ctx: commands.Context, *, keyword: str = None):
+        """Get text from the rules"""
+        await ctx.channel.trigger_typing()
+
+        if keyword == None:
+            with open('Assets/Rules.txt', 'r', encoding = 'utf-8') as RulesFile:
+                content = RulesFile.read()
+                await Success(content, ctx)
+                return
+        
+        with open('Assets/Rules.txt', 'r', encoding = 'utf-8') as RulesFile:
+            match = [line for line in RulesFile if keyword in line]
+        
+        if match == []:
+            await Fail(f"I couldn't find anything with `{keyword}`", ctx)
+            return
+            
+        desc = ''
+        for line in match:
+            desc += f"{line}"
+
+        await Success(desc, ctx)
+
+
 # Setup the bot
 def setup(bot:commands.Bot):
     bot.add_cog(Admin(bot))
