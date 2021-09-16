@@ -24,7 +24,7 @@ class Dismiss(View):
         self.ctx = ctx
     
 
-    @button(label = '⛔', style = nextcord.ButtonStyle.blurple)
+    @button(label = '🗑️', style = nextcord.ButtonStyle.red)
     async def  dismiss(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         await interaction.message.delete()
     

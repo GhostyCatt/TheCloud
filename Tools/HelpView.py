@@ -10,7 +10,7 @@ with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
 # Variables
-cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings"]
+cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings", "Message"]
 
 # Dropdown Menu for main help command
 class Dropdown(Select):
@@ -101,7 +101,7 @@ class ButtonArrayMain(View):
         await interaction.response.send_message(embed = embed, ephemeral = True)
 
 
-    @button(label = 'Disable', style = nextcord.ButtonStyle.red)
+    @button(label = '❌', style = nextcord.ButtonStyle.red)
     async def  dash_cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Disable all interactions"""
         for child in self.children:
@@ -134,17 +134,7 @@ class ButtonArray(View):
         self.ctx = ctx
     
 
-    @button(label = 'Disable', style = nextcord.ButtonStyle.red)
-    async def  dash_cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        """Disable all interactions"""
-        for child in self.children:
-            child.disabled = True  
-        await self.response.edit(view = self)
-        
-        self.stop()
-
-
-    @button(label = 'About Me', style = nextcord.ButtonStyle.blurple)
+    @button(label = 'ℹ️', style = nextcord.ButtonStyle.blurple)
     async def  help_info(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Send bot Info from Assets"""
         with open('Assets/HelpInfo.txt', 'r') as InfoAsset:
@@ -152,6 +142,16 @@ class ButtonArray(View):
         
         embed = await Custom("Info", Info)
         await interaction.response.send_message(embed = embed, ephemeral = True)
+        
+
+    @button(label = '❌', style = nextcord.ButtonStyle.red)
+    async def  dash_cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        """Disable all interactions"""
+        for child in self.children:
+            child.disabled = True  
+        await self.response.edit(view = self)
+        
+        self.stop()
 
 
     async def on_timeout(self):

@@ -12,7 +12,7 @@ with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
 # Variables
-cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings"]
+cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings", "Message"]
 
 # Help command subclass
 class Help(commands.HelpCommand):

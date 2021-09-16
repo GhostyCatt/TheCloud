@@ -1,9 +1,11 @@
 # Library Imports
 import nextcord, json, os, sys
 from nextcord.ext import commands
+from nextcord.ext.commands.flags import F
 
 # Custom Imports
 from Functions.Embed import *
+from Tools.Menu import Dash
 from Tools.Confirm import Confirm
 
 # Options from Json
@@ -16,6 +18,25 @@ class Developer(commands.Cog):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
     
+
+    def cog_check(self, ctx: commands.Context) -> bool:
+        return ctx.author.id in Options['Owners']
+
+
+    @commands.command(name = "Dashboard", aliases = ["Dash"])
+    @commands.cooldown(1, 10, commands.BucketType.member)
+    async def  dashboard(self, ctx: commands.Context):
+        """Open Developer Dashboard"""
+        await ctx.channel.trigger_typing()
+
+        await ctx.message.delete()
+        embed = await Custom(
+            title = f"Developer's Menu [ {ctx.author.name} ]",
+            description = f"Use the buttons below to carry out bot related actions.\n\nThis dashboard will time out in `5 minutes`! Make sure you use the **Close** Button."
+        )
+        view = Dash(ctx)
+        view.response = await ctx.send(embed = embed, view = view)
+
     
     @commands.command(name = "Reload", aliases = ["rl"])
     @commands.cooldown(1, 10, commands.BucketType.member)

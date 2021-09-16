@@ -33,7 +33,7 @@ class Confirm(View):
             await interaction.response.send_message("You don't have the permission to use that button!", ephemeral = True)
 
 
-    @button(label = '⛔', style = nextcord.ButtonStyle.red)
+    @button(label = '❌', style = nextcord.ButtonStyle.red)
     async def cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Cancel action"""
         if interaction.user.id == self.ctx.author.id:
