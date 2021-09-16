@@ -10,6 +10,7 @@ from Modules.HelpCommand import Help
 from Tools.Verify import Counter
 from Tools.Support import SupportView, StaffAppView
 from Tools.Roles import RoleView
+from Tools.Ranks import RankView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
@@ -38,6 +39,7 @@ class TheCloud(commands.Bot):
             self.add_view(SupportView(self))
             self.add_view(StaffAppView(self))
             self.add_view(RoleView(self))
+            self.add_view(RankView(self))
             self.persistent_views_added = True
 
 
