@@ -59,6 +59,7 @@ extensions = [
     "Commands.Support",
     "Commands.Application",
     "Commands.Roles",
+    "Commands.Admin",
 
     # Modules #
     "Modules.ErrorHandler",
