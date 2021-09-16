@@ -70,6 +70,8 @@ class StaffApp(commands.Cog):
             view = QuestionView(ctx, MenuOptions)
 
             await ctx.send(embed = embed, view = view)
+        
+        await Success("You can leave the thread after answering all these questions! Owner / Coowners will check out your application and get back to you when they can.", ctx)
 
 # Setup the bot
 def setup(bot:commands.Bot):
