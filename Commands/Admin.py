@@ -29,10 +29,10 @@ class Admin(commands.Cog):
             await Fail("You can't purge more than 1000 messages!", ctx)
             return
         
-        await ctx.channel.purge(limit = messages)
-        await Success(f"{messages} messages were purged from {ctx.channel.mention}", ctx)
+        Deleted = await ctx.channel.purge(limit = messages)
+        await Success(f"{Deleted} messages were purged from {ctx.channel.mention}", ctx)
 
-        await Log(f"`{messages}` messages were purged from {ctx.channel.mention} by {ctx.author.mention}", ctx)
+        await Log(f"`{Deleted}` messages were purged from {ctx.channel.mention} by {ctx.author.mention}", ctx)
     
 
     @commands.group(name = 'Lockdown', aliases = ['Secure', 'Ld'])
