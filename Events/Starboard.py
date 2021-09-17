@@ -21,14 +21,16 @@ class Starboard(commands.Cog):
         message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
         if payload.user_id == message.author.id or message.author.bot == True:
-            try: 
-                await message.remove_reaction('⭐')
-                return
-            except: return
-
+            return
+        
+        if message.content == None:
+            content = "This message doens't have any content"
+        else:
+            content = message.content
+            
         embed = await Custom(
             f"Starboard ⭐",
-            f"{message.content}"
+            f"{content}"
         )
         embed.add_field(name = "Author", value = message.author.mention)
         embed.add_field(name = "Starred by", value = f"<@{payload.user_id}>")
@@ -36,6 +38,10 @@ class Starboard(commands.Cog):
         channel = self.bot.get_guild(886521228586803210).get_channel(Options['Channels']['Starboard'])
 
         await channel.send(embed = embed)
+
+        if message.attachments:
+            for attachment in message.attachments:
+                await channel.send(attachment)
         
 
 # Setup the bot
