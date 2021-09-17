@@ -30,9 +30,9 @@ class Admin(commands.Cog):
             return
         
         Deleted = await ctx.channel.purge(limit = messages)
-        await Success(f"{Deleted} messages were purged from {ctx.channel.mention}", ctx)
+        await Success(f"{len(Deleted)} messages were purged from {ctx.channel.mention}", ctx)
 
-        await Log(f"`{Deleted}` messages were purged from {ctx.channel.mention} by {ctx.author.mention}", ctx)
+        await Log(f"`{len(Deleted)}` messages were purged from {ctx.channel.mention} by {ctx.author.mention}", ctx)
     
 
     @commands.group(name = 'Lockdown', aliases = ['Secure', 'Ld'])
