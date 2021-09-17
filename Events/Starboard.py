@@ -18,9 +18,25 @@ class Starboard(commands.Cog):
     @commands.Cog.listener('on_raw_reaction_add')
     async def  onReactionAdd(self, payload:nextcord.RawReactionActionEvent):
         """Triggered when a reaction is added"""
-        
-        
+        message = await self.bot.get_channel(payload.channel_id).fetch_message(payload.message_id)
 
+        if payload.user_id == message.author.id or message.author.bot == True:
+            try: 
+                await message.remove_reaction('⭐')
+                return
+            except: return
+
+        embed = await Custom(
+            f"Starboard ⭐",
+            f"{message.content}"
+        )
+        embed.add_field(name = "Author", value = message.author.mention)
+        embed.add_field(name = "Starred by", value = f"<@{payload.user_id}>")
+        embed.add_field(name = "Message link", value = f"Click [here](https://discord.com/channels/886521228586803210/{message.channel.id}/{message.id})")
+        channel = self.bot.get_guild(886521228586803210).get_channel(Options['Channels']['Starboard'])
+
+        await channel.send(embed = embed)
+        
 
 # Setup the bot
 def setup(bot:commands.Bot):

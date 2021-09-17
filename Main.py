@@ -52,6 +52,7 @@ extensions = [
     # Events #
     "Events.Greetings",
     "Events.onMessage",
+    "Events.Starboard",
 
     # Commands #
     "Commands.Verify",
