@@ -98,7 +98,7 @@ class Developer(commands.Cog):
             if view.value:
                 try:
                     self.bot.load_extension(cog)
-                    embed = await Success(f"**`{cog}`** Has been reloaded.")
+                    embed = await Success(f"**`{cog}`** Has been loaded.")
                     await view.response.edit(embed = embed)
 
                 except commands.errors.ExtensionNotFound:
@@ -128,7 +128,7 @@ class Developer(commands.Cog):
             if view.value:
                 try:
                     self.bot.unload_extension(cog)
-                    embed = await Success(f"**`{cog}`** Has been reloaded.")
+                    embed = await Success(f"**`{cog}`** Has been unloaded.")
                     await view.response.edit(embed = embed)
 
                 except commands.errors.ExtensionNotFound:
