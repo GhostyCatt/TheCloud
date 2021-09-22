@@ -7,7 +7,7 @@ from colorama import Fore, init
 # Custom Imports
 from Modules.HelpCommand import Help
 from Functions.WebServer import Start
-from Tools.Verify import Counter
+from Tools.Verify import VerifyView
 from Tools.Support import SupportView, StaffAppView
 from Tools.Roles import RoleView
 from Tools.Ranks import RankView
@@ -35,7 +35,7 @@ class TheCloud(commands.Bot):
 
     async def on_ready(self):
         if not self.persistent_views_added:
-            self.add_view(Counter(self))
+            self.add_view(VerifyView(self))
             self.add_view(SupportView(self))
             self.add_view(StaffAppView(self))
             self.add_view(RoleView(self))
