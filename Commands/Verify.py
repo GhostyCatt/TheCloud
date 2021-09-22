@@ -28,8 +28,8 @@ class Verify(commands.Cog):
         embed = await Custom("Verify", "Click on the button below to gain access to the rest of the server!\n\nMake sure you have read the rules before doing so.")
         embed.set_footer(text = "Note: If the bot is offline, this button won't respond.")
         
-        # Send message with counter
-        view = Counter(self.bot)
+        # Send message with the verify button
+        view = VerifyView(self.bot)
         view.response = await ctx.send(embed = embed, view = view)
     
 

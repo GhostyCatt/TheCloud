@@ -28,7 +28,7 @@ class Support(commands.Cog):
         embed = await Custom("Support", "Click the button below to open a new ticket!\n\nYou **MUST** have a legitimate reason to create the ticket, or you may be kicked or banned from the server.")
         embed.set_footer(text = "Note: If the bot is offline, this button won't respond.")
         
-        # Send message with counter
+        # Send message with the support view
         view = SupportView(self.bot)
         view.response = await ctx.send(embed = embed, view = view)
     
@@ -44,7 +44,7 @@ class Support(commands.Cog):
         embed = await Custom("Ingame Help", "Click the button below to open a new ticket!\n\nYou **MUST** have a legitimate reason to create the ticket, or you may be kicked or banned from the server.")
         embed.set_footer(text = "Note: If the bot is offline, this button won't respond.")
         
-        # Send message with counter
+        # Send message with the support view
         view = SupportView(self.bot)
         view.response = await ctx.send(embed = embed, view = view)
     
@@ -60,7 +60,7 @@ class Support(commands.Cog):
         embed = await Custom("Player Report", f"Click the button below to open a new report!\n\nMake sure you have screenshots and/or any required evidence against the player you are reporting.")
         embed.set_footer(text = "Note: If the bot is offline, this button won't respond.")
         
-        # Send message with counter
+        # Send message with the support view
         view = SupportView(self.bot)
         view.response = await ctx.send(embed = embed, view = view)
 
@@ -70,18 +70,21 @@ class Support(commands.Cog):
     @commands.has_role(Options['Roles']['Helper'])
     async def  close(self, ctx:commands.Context):
         """Close Thread"""
+        # Don't allow the closing of threads outside of support channels
         SupportChannels = [
             886566990788034610,
             886569978940260353,
             886567102683693126,
             886567334381240330
         ]
+
+        # Check if the command is being used in a thread
         if isinstance(ctx.channel, nextcord.Thread):
             if ctx.channel.parent_id in SupportChannels:
+                # Delete the thread
                 await ctx.channel.delete()
             else:
                 await Fail("This command can only be used in support channel threads", ctx)
-                print("in")
         else:
             await Fail("This command can only be used in support channel threads", ctx)
 

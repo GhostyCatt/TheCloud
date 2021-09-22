@@ -96,24 +96,6 @@ class CommandErrorHandler(commands.Cog):
             view = Dismiss(ctx)
             view.response = await ctx.send_help(ctx.command)
 
-        # Trigger if document is too large to be inserted into the database
-        elif isinstance(error, pymongo.errors.DocumentTooLarge):
-            embed = await Fail(f'What you tried to insert into the database is too large!')
-            view = Dismiss(ctx)
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
-        
-        # Trigger if the key already exists in the database
-        elif isinstance(error, pymongo.errors.DuplicateKeyError):
-            embed = await Fail(f'That key already exists in the database.')
-            view = Dismiss(ctx)
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
-        
-        # Trigger if cursor is invalid
-        elif isinstance(error, pymongo.errors.CursorNotFound):
-            embed = await Fail(f'The cursor was rendered invalid!')
-            view = Dismiss(ctx)
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
-
         # General error
         else:
             embed = await Fail('Something went wrong in the command **{}**'.format(ctx.command))

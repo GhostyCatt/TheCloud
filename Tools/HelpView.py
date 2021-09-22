@@ -10,7 +10,7 @@ with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
 # Variables
-cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings", "Message"]
+cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings", "Tag"]
 
 # Dropdown Menu for main help command
 class Dropdown(Select):

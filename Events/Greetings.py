@@ -18,38 +18,55 @@ class Greetings(commands.Cog):
     @commands.Cog.listener('on_member_join')
     async def  onMemberJoin(self, member:nextcord.Member):
         """Triggered when a user joins the server"""
-        Guild = self.bot.get_guild(886521228586803210)
+        # Get the guild object
+        Guild = self.bot.get_guild(Options['Guild']['ID'])
 
+        # Check if the member is a bot
         if not member.bot:
+            # Get all the placeholder roles and assign them
             for RoleID in Options['Roles']['PlaceHolder']:
                 Role = Guild.get_role(RoleID)
                 await member.add_roles(Role)
             
+            # Make a welcome message
             embed = await Success(f"**{member.name}** just joined!")
             
-            channel = Guild.get_channel(886559028136792084)
+            # Get the channel object and send the welcome messsage
+            channel = Guild.get_channel(Options['Channels']['Greetings'])
             message = await channel.send(embed = embed)
+            
+            # Add a star reaction cuz why not :)
             await message.add_reaction('🌟')
         else:
+            # Get the bot role and assign it
             Role = Guild.get_role(Options['Roles']['Bot'])
             await member.add_roles(Role)
 
+            # Create a welcome message
             embed = await Success(f"**{member.name}** just joined!")
             
-            channel = Guild.get_channel(886559028136792084)
+            # Get the channel object and send the welcome message
+            channel = Guild.get_channel(Options['Channels']['Greetings'])
             message = await channel.send(embed = embed)
+
+            # Add a bot reaction cuz its a bot ._.
             await message.add_reaction('🤖')
 
     
     @commands.Cog.listener('on_member_remove')
     async def  onMemberRemove(self, member:nextcord.Member):
         """Triggered when a user leaves the server"""
-        Guild = self.bot.get_guild(886521228586803210)
-            
+        # Get the guild object
+        Guild = self.bot.get_guild(Options['Guild']['ID'])
+        
+        # Create a leave embed
         embed = await Fail(f"**{member.name}** left the server!")
-            
-        channel = Guild.get_channel(886559028136792084)  
-        message = await channel.send(embed = embed)
+        
+        # Get the channel object and send the message
+        channel = Guild.get_channel(Options['Channels']['Greetings'])  
+        message = await channel.send(embed = embed)\
+
+        # Add a star reaction
         await message.add_reaction('🌟')
 
 

@@ -20,22 +20,23 @@ class Dropdown(Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         """Module Specific Help"""
-
+        # Edit the message with the selected value and remove the view
         if self.values[0] != "Other":
-            await interaction.response.edit_message(content = self.values[0], view = None)
+            await interaction.response.edit_message(content = f"Selected Option : **{self.values[0]}**", view = None)
         else:
-            await interaction.response.edit_message(content = "Not specified.", view = None)
+            await interaction.response.edit_message(content = f"Selected Option : **Other**\nHey, {interaction.user.name} please enter specifications in the chat below!", view = None)
 
 
 
 # Button array for the main help command embed
 class QuestionView(View):
     def __init__(self, ctx, options:list):
-        super().__init__(timeout = 180)
+        super().__init__(timeout = 300)
 
         self.response = None
         self.ctx = ctx
         
+        # Add the dropdown view
         self.add_item(Dropdown(self.ctx, options))
 
     async def on_timeout(self):

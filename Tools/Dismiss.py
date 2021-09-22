@@ -6,26 +6,15 @@ from nextcord.ui import button, View, Select
 # Custom Imports
 from Functions.Embed import *
 
+# Dismiss button
 class Dismiss(View):
-    """
-    Dismiss
-    -------
-    
-    Contents: 
-    
-    * Dismiss Button: Deletes Interaction Message
-    Arguments: 
-    * Context
-    """
-    def __init__(self, ctx:commands.Context):
+    def __init__(self):
         super().__init__(timeout = 30)
 
-        self.response = None
-        self.ctx = ctx
-    
 
     @button(label = '🗑️', style = nextcord.ButtonStyle.red)
     async def  dismiss(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        # Delete the message
         await interaction.message.delete()
     
 

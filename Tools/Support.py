@@ -12,14 +12,6 @@ with open('Config/Options.json') as RawOptions:
 
 # Support Class
 class SupportView(View):
-    """
-    Support
-    ------
-    
-    Contents: 
-    
-    * New Button: creates thread
-    """
     def __init__(self, bot:commands.Bot):
         super().__init__(timeout = None)
 
@@ -39,7 +31,7 @@ class SupportView(View):
             await Thread.add_user(interaction.user)
             await Message.delete()
 
-            Guild = self.bot.get_guild(886521228586803210)
+            Guild = self.bot.get_guild(Options['Guild']['ID'])
             HelperRole = Guild.get_role(Options['Roles']['Helper'])
 
             embed = await Custom(f"{interaction.user.name}'s Thread", f"Welcome to your thread, any user can join this thread. Use the command `{Options['Prefix']}close` to close this thread.")
@@ -50,16 +42,8 @@ class SupportView(View):
         except: pass
 
 
-# Verify Class
+# Staff App Class
 class StaffAppView(View):
-    """
-    Staff
-    ------
-    
-    Contents: 
-    
-    * New Button: creates thread
-    """
     def __init__(self, bot:commands.Bot):
         super().__init__(timeout = None)
 

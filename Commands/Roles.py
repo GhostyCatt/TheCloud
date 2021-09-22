@@ -25,6 +25,7 @@ class Roles(commands.Cog):
         """Send the Self Roles Menu"""
         await ctx.channel.trigger_typing()
 
+        # Delete the authors message
         await ctx.message.delete()
         
         # Create embed

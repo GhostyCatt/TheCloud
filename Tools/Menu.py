@@ -9,7 +9,7 @@ from Functions.Embed import *
 with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
-
+# Dashboard view
 class Dash(View):
     def __init__(self, ctx:commands.Context):
         super().__init__(timeout = 300)
@@ -18,6 +18,7 @@ class Dash(View):
         self.ctx = ctx
 
     
+    # These functions carry out the same action used in Commands/Developer.py
     @button(label = 'Restart', style = nextcord.ButtonStyle.blurple)
     async def  restart(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         if interaction.user.id == self.ctx.author.id:

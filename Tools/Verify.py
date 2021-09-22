@@ -11,17 +11,7 @@ with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
 # Verify Class
-class Counter(View):
-    """
-    Verify
-    ------
-    
-    Contents: 
-    
-    * Verify Button: verifys' a user
-    Arguments: 
-    * Bot
-    """
+class VerifyView(View):
     def __init__(self, bot:commands.Bot):
         super().__init__(timeout = None)
 
@@ -31,7 +21,7 @@ class Counter(View):
 
     @button(label = '✔️', style = nextcord.ButtonStyle.green, custom_id = "VerificationButton2000")
     async def  verify(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        Guild = self.bot.get_guild(886521228586803210)
+        Guild = self.bot.get_guild(Options['Guild']['ID'])
         MemberRole = Guild.get_role(Options['Roles']['Member'])
 
         if MemberRole in interaction.user.roles:

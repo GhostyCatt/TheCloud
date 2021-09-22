@@ -1,5 +1,5 @@
 # Library Imports
-import nextcord, json
+import nextcord, json, asyncio
 from nextcord.ext import commands
 
 # Custom Imports
@@ -40,21 +40,27 @@ class StaffApp(commands.Cog):
         """Start a staff application"""
         await ctx.channel.trigger_typing()
 
-        await ctx.message.delete()
-
+        # Return of the command is used in a normal text channel
         if isinstance(ctx.channel, nextcord.TextChannel):
             await Fail("You can't use this command here!", ctx)
             return
-            
+        
+        # Return if the parent channel isn't the staffapp channel
         if ctx.channel.parent_id != Options['Channels']['Application']:
             await Fail("You can't use this command here!", ctx)
             return
 
+        # Open the questions file and convert it to json
         with open('Config/Application.json', 'r') as RawQuestions:
             Questions = json.load(RawQuestions)['Questions']
 
-        await Success("Your staff application is starting, you have `2 mins` to answer all these questions, good luck!", ctx)
+        # Send a success embed
+        await Success("Your staff application is starting in 5 seconds, you will have `5 mins` to answer all these questions, good luck!\n\nPlease take this seriously and DO NOT make troll / prank applications. We WILL ban you for this.", ctx)
 
+        # Wait for 5 seconds
+        await asyncio.sleep(5)
+
+        # Send all the questions with a select menu under them
         for Question in Questions:
             embed = await Custom(
                 Question["Name"],
@@ -71,6 +77,7 @@ class StaffApp(commands.Cog):
 
             await ctx.send(embed = embed, view = view)
         
+        # Send a final message
         await Success("You can leave the thread after answering all these questions! Owner / Coowners will check out your application and get back to you when they can.", ctx)
 
 # Setup the bot

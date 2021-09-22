@@ -10,8 +10,8 @@ from Functions.Embed import *
 with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
-# Self Role Drowdowns
-
+# Note: The roles are fetched from IDs. These id's are stored as the values of the options in the dropdowns. To change this, modify the "options" variable in each subclass of Select
+# Age roles dropdown
 class AgeMenu(Select):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
@@ -28,7 +28,7 @@ class AgeMenu(Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         try:
-            Guild = self.bot.get_guild(886521228586803210)
+            Guild = self.bot.get_guild(Options['Guild']['ID'])
             Role = Guild.get_role(int(self.values[0]))
 
             if Role in interaction.user.roles:
@@ -39,9 +39,8 @@ class AgeMenu(Select):
             await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        
 
-
+# Gender roles dropdown
 class SexMenu(Select):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
@@ -56,7 +55,7 @@ class SexMenu(Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         try:
-            Guild = self.bot.get_guild(886521228586803210)
+            Guild = self.bot.get_guild(Options['Guild']['ID'])
             Role = Guild.get_role(int(self.values[0]))
 
             if Role in interaction.user.roles:
@@ -67,9 +66,8 @@ class SexMenu(Select):
             await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        
 
-
+# Hobby roles dropdown
 class InterestMenu(Select):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
@@ -88,7 +86,7 @@ class InterestMenu(Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         try:
-            Guild = self.bot.get_guild(886521228586803210)
+            Guild = self.bot.get_guild(Options['Guild']['ID'])
             Role = Guild.get_role(int(self.values[0]))
 
             if Role in interaction.user.roles:
@@ -99,9 +97,8 @@ class InterestMenu(Select):
             await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        
 
-
+# Mention roles dropdown
 class PingMenu(Select):
     def __init__(self, bot:commands.Bot):
         self.bot = bot
@@ -118,7 +115,7 @@ class PingMenu(Select):
 
     async def callback(self, interaction: nextcord.Interaction):
         try:
-            Guild = self.bot.get_guild(886521228586803210)
+            Guild = self.bot.get_guild(Options['Guild']['ID'])
             Role = Guild.get_role(int(self.values[0]))
 
             if Role in interaction.user.roles:
@@ -140,6 +137,7 @@ class RoleView(View):
         self.response = None
         self.bot = bot
         
+        # Add all the views
         self.add_item(AgeMenu(bot))
         self.add_item(SexMenu(bot))
         self.add_item(InterestMenu(bot))

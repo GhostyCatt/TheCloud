@@ -5,8 +5,6 @@
 
     "Website": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 
-    "Server Invite": "",
-
     "Roles": {
         "Owner": 886532139976380507,
         "Admin": 886526629118107669,
@@ -23,6 +21,7 @@
     },
 
     "Channels": {
+        "Greetings": 886559028136792084,
         "Announcement": 886558734720061450,
         "Application": 886567102683693126,
         "Log": 886571000140009472,
@@ -37,6 +36,10 @@
             886568571004674049,
             886569228600225802
         ]
+    },
+
+    "Guild": {
+        "ID": 847022556015230987
     },
 
     "Owners": [
