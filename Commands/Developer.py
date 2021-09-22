@@ -49,7 +49,7 @@ class Developer(commands.Cog):
         # Add a confirm view to a embed and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to reload `{cog}`?")
-        view.response = await ctx.send(embed = embed, view = view)
+        await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -97,7 +97,7 @@ class Developer(commands.Cog):
         # Add a confirm view and send the embed
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to load `{cog}`?")
-        view.response = await ctx.send(embed = embed, view = view)
+        await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -129,7 +129,7 @@ class Developer(commands.Cog):
         # Create a confirm message and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to unload `{cog}`?")
-        view.response = await ctx.send(embed = embed, view = view)
+        await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -161,7 +161,7 @@ class Developer(commands.Cog):
         # Create message with the confirm view and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to shutdown?")
-        view.response = await ctx.send(embed = embed, view = view)
+        await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -185,7 +185,7 @@ class Developer(commands.Cog):
         # Create a message with the confirm view and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to restart?")
-        view.response = await ctx.send(embed = embed, view = view)
+        await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()

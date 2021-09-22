@@ -142,5 +142,5 @@ class Help(commands.HelpCommand):
         embed = await Custom(f"Error", f"{error}")
 
         # Send embed with button interactions
-        view = Dismiss(self.context)
+        view = Dismiss()
         view.response = await channel.send(embed = embed, view = view)

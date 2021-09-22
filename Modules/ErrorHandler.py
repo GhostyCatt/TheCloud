@@ -57,31 +57,31 @@ class CommandErrorHandler(commands.Cog):
         # Trigger if command used is disabled
         if isinstance(error, commands.DisabledCommand):
             embed = await Fail(f'{ctx.command} has been disabled.')
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
         
         # Trigger if command used is on cooldown
         elif isinstance(error, commands.CommandOnCooldown):
             embed = await Fail(f'{ctx.command} is on cooldown. `{round(error.retry_after)}`')
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
         
         # Trigger if author doens't meet permissions threshold
         elif isinstance(error, commands.MissingPermissions):
             embed = await Fail(f'You don\'t have the permissions to run {ctx.command}')
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
         
         # Trigger if bot doesn't have the permissions needed to carry out a command
         elif isinstance(error, commands.BotMissingPermissions):
             embed = await Fail(f'I don\'t have enough permissions to handle the {ctx.command} command.')
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
 
         # Trigger if use doesn't have the required role to run a command
         elif isinstance(error, commands.MissingRole):
             embed = await Fail(f'You don\'t have the role required to run the {ctx.command} command.')
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
         
         # Trigger if command can't be used in dms
@@ -93,13 +93,13 @@ class CommandErrorHandler(commands.Cog):
         
         # Trigger if any arguments are missing
         elif isinstance(error, commands.MissingRequiredArgument):
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.send_help(ctx.command)
 
         # General error
         else:
             embed = await Fail('Something went wrong in the command **{}**'.format(ctx.command))
-            view = Dismiss(ctx)
+            view = Dismiss()
             view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
 
             print('Ignoring exception in command {}:'.format(ctx.command), file = sys.stderr)
