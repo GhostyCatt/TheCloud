@@ -81,7 +81,7 @@ if __name__ == '__main__':
     print(Fore.LIGHTCYAN_EX + "[ ■ ] Finished loading extensions")
 
 # Starting the web server
-Start(port = random.randint(2000, 9000))
+Start()
 
 # Logging into discord with token from secure file
 load_dotenv()

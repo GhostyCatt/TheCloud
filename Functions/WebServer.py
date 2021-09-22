@@ -7,12 +7,12 @@ App = Flask('')
 def home():
     return "Bot has connected to discord!"
 
-def run(port:int):
+def run():
   App.run(
         host = '0.0.0.0',
-        port = port
+        port = 6666
     )
 
-def Start(port:int = 6666):
-    thread = Thread(target = run(port))
+def Start():
+    thread = Thread(target = run)
     thread.start()
