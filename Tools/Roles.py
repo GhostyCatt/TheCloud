@@ -126,8 +126,6 @@ class PingMenu(Select):
             await interaction.response.edit_message(embed = interaction.message.embeds[0])
         except: pass
 
-        
-
 
 # Button array 
 class RoleView(View):
