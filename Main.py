@@ -1,12 +1,12 @@
 # Library Imports
-from Functions.Embed import Custom
-import nextcord, json, os
+import nextcord, json, os, random
 from nextcord.ext import commands
 from dotenv import load_dotenv
 from colorama import Fore, init
 
 # Custom Imports
 from Modules.HelpCommand import Help
+from Functions.WebServer import Start
 from Tools.Verify import Counter
 from Tools.Support import SupportView, StaffAppView
 from Tools.Roles import RoleView
@@ -51,7 +51,7 @@ init(autoreset = True)
 extensions = [
     # Events #
     "Events.Greetings",
-    "Events.onMessage",
+    "Events.Announcements",
     "Events.Starboard",
 
     # Commands #
@@ -79,6 +79,9 @@ if __name__ == '__main__':
             print(Fore.LIGHTRED_EX + f"  [-] {extension}")
 
     print(Fore.LIGHTCYAN_EX + "[ ■ ] Finished loading extensions")
+
+# Starting the web server
+Start(port = random.randint(2000, 9000))
 
 # Logging into discord with token from secure file
 load_dotenv()

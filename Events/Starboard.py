@@ -19,7 +19,7 @@ class Starboard(commands.Cog):
     async def  onReactionAdd(self, payload:nextcord.RawReactionActionEvent):
         """Triggered when a reaction is added"""
         # Return if the reaction isn't a star
-        if not payload.emoji.name in ["⭐", "🤩", "🌟"]:
+        if not payload.emoji.name in ["⭐"]:
             return
 
         # Get the message object
