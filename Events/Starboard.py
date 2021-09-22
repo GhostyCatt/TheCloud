@@ -49,7 +49,7 @@ class Starboard(commands.Cog):
 
         # Get the channel object and send the embed
         channel = self.bot.get_guild(Options['Guild']['ID']).get_channel(Options['Channels']['Starboard'])
-        await channel.send(content = f"{message.id}", embed = embed)
+        await channel.send(embed = embed)
 
         # If the message had any attachments, send them too
         if message.attachments:
