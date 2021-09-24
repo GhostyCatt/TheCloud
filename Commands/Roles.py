@@ -4,8 +4,8 @@ from nextcord.ext import commands
 
 # Custom Imports
 from Functions.Embed import *
-from Tools.Roles import RoleView
-from Tools.Ranks import RankView
+from Views.Roles import RoleView
+from Views.Ranks import RankView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:

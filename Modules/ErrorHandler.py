@@ -5,7 +5,7 @@ from nextcord.ui import View, button
 
 # Custom Imports
 from Functions.Embed import *
-from Tools.Dismiss import Dismiss
+from Views.Dismiss import Dismiss
 
 class CommandErrorHandler(commands.Cog):
     """

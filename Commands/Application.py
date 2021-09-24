@@ -4,8 +4,8 @@ from nextcord.ext import commands
 
 # Custom Imports
 from Functions.Embed import *
-from Tools.Support import *
-from Tools.Question import QuestionView
+from Views.Support import *
+from Views.Question import QuestionView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:

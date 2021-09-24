@@ -4,8 +4,8 @@ from nextcord.ext import commands
 
 # Custom Imports
 from Functions.Embed import *
-from Tools.HelpView import *
-from Tools.Dismiss import Dismiss
+from Views.HelpView import *
+from Views.Dismiss import Dismiss
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:

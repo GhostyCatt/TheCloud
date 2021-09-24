@@ -5,8 +5,8 @@ from nextcord.ext.commands.flags import F
 
 # Custom Imports
 from Functions.Embed import *
-from Tools.Menu import Dash
-from Tools.Confirm import Confirm
+from Views.Menu import Dash
+from Views.Confirm import Confirm
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
