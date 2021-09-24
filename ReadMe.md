@@ -1,10 +1,6 @@
 # The Cloud Official
 
 > Version : `v1.0.1`
-> 
-> Made by : `Ghostyy#5668`
-> 
-> Credits : `Progamer68#7309` Co-Owning the project
 
 This is the source code for the offical CloudBot made for [The Cloud](https://discord.gg/EGgYPZTnZV). This code is lisenced under the **MIT License** and can be used by others freely.
 
