@@ -7,10 +7,10 @@ from colorama import Fore, init
 # Custom Imports
 from Modules.HelpCommand import Help
 from Functions.WebServer import Start
-from Tools.Verify import VerifyView
-from Tools.Support import SupportView, StaffAppView
-from Tools.Roles import RoleView
-from Tools.Ranks import RankView
+from Views.Verify import VerifyView
+from Views.Support import SupportView, StaffAppView
+from Views.Roles import RoleView
+from Views.Ranks import RankView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
