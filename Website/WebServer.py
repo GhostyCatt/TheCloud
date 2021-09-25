@@ -1,16 +1,18 @@
-from flask import Flask
+from flask import Flask, render_template
 from threading import Thread
 
 App = Flask('')
 
 @App.route('/')
 def home():
-    return "Bot has connected to discord!"
+    return render_template(
+        "index.html"
+    )
 
 def run():
   App.run(
         host = '0.0.0.0',
-        port = 6666
+        port = 5000
     )
 
 def Start():

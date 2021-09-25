@@ -6,7 +6,7 @@ from colorama import Fore, init
 
 # Custom Imports
 from Modules.HelpCommand import Help
-from Functions.WebServer import Start
+from Website.WebServer import Start
 from Views.Verify import VerifyView
 from Views.Support import SupportView, StaffAppView
 from Views.Roles import RoleView
