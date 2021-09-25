@@ -1,13 +1,11 @@
-from flask import Flask, render_template
+from flask import Flask
 from threading import Thread
 
 App = Flask('')
 
 @App.route('/')
 def home():
-    return render_template(
-        "Index.html"
-    )
+    return ""
 
 def run():
   App.run(
