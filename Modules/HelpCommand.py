@@ -16,15 +16,6 @@ cog_ignore = ["Isolated Commands", "CommandErrorHandler", "Greetings", "Tags", "
 
 # Help command subclass
 class Help(commands.HelpCommand):
-    """
-    The Help Command
-    ---------------
-    Types: 
-    * Bot Help
-    * Command Help
-    * Cog Help
-    * Group Help
-    """
     def get_command_signature(self, command):
         """Get a clean command usage string"""
         prefix = Options['Prefix']
