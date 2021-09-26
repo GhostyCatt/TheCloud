@@ -19,7 +19,7 @@ async def Success(text:str = "Done!", ctx:commands.Context = None) -> nextcord.E
     * `Ctx` - If passed, embed is sent in current channel.
     """
     embed = nextcord.Embed(
-        description = f"{text}",
+        description = f"{Options['Emojis']['Check']} {text}",
         color = nextcord.Colour.green()
     )
     
@@ -41,7 +41,7 @@ async def Fail(text:str = "Something went wrong!", ctx:commands.Context = None) 
     * `Ctx` - If passed, embed is sent in current channel.
     """
     embed = nextcord.Embed(
-        description = f"{text}",
+        description = f"{Options['Emojis']['Cross']} {text}",
         color = nextcord.Colour.red()
     )
     
