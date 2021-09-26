@@ -33,14 +33,16 @@ class Help(commands.HelpCommand):
             f"An enhanced minecraft experience."
         )
 
-        # Add a new field for every cog in the bot
-        for cog, commands in mapping.items():
-            name = getattr(cog, "qualified_name", "Isolated Commands")
+        # Add fields
+        Fields = [
+            ["Getting Help", "You can use the channels in the Support category to create personal tickets for any assistance you might need!"],
+            ["Minecraft Servers", "Our minecraft server has multiple realms! Some modded, some not. For more, click the Minecraft button below!"],
+            ["Rules", "While on our server, you have to follow everything in the Rules channel and the [Discord TOS](https://discord.com/terms)."]
+        ]
+        for Field in Fields:
+            embed.add_field(name = Field[0], value = Field[1], inline = False)
 
-            if name in cog_ignore:
-                pass
-            else:
-                embed.add_field(name = f"**{name}**", value = f"`{prefix}help {name}`", inline = True)
+        embed.set_thumbnail(url = "https://cdn.discordapp.com/app-icons/886600985307410522/0a5e4d170d3603933f26e391c0573278.png?size=512")
         
         # Send embed with button interactions
         view = ButtonArrayMain(self.context, mapping, self, embed)
