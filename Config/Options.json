@@ -5,6 +5,11 @@
 
     "Website": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
 
+    "Emojis": {
+        "Check": "<:Check:891618182861848576>",
+        "Cross": "<:Cross:891618183147061268>"
+    },
+
     "Roles": {
         "Owner": 886532139976380507,
         "Admin": 886526629118107669,
