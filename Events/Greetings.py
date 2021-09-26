@@ -16,7 +16,7 @@ class Greetings(commands.Cog):
     
     
     @commands.Cog.listener('on_member_join')
-    async def  onMemberJoin(self, member:nextcord.Member):
+    async def  GreetingsDetection(self, member:nextcord.Member):
         """Triggered when a user joins the server"""
         # Get the guild object
         Guild = self.bot.get_guild(Options['Guild']['ID'])
