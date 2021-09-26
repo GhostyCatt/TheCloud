@@ -70,6 +70,11 @@ class CommandErrorHandler(commands.Cog):
         # Trigger if any arguments are missing
         elif isinstance(error, commands.MissingRequiredArgument):
             await ctx.send_help(ctx.command)
+
+        # Trigger if member not found
+        elif isinstance(error, commands.MemberNotFound):
+            embed = await Fail(error)
+            await ctx.reply(embed = embed, mention_author = False)
             
         # General error
         else:
