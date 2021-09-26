@@ -23,13 +23,14 @@ class Confirm(View):
         """Confirm action"""
         # Check if the person who used the button is the author
         if interaction.user.id == self.ctx.author.id:
+            # Disable the buttons
+            for child in self.children:
+                child.disabled = True  
+            
             # Stop the view and return the value
             self.stop()
             self.value = True
             
-            # Disable the buttons
-            for child in self.children:
-                child.disabled = True  
             await interaction.response.edit_message(view = self)
         else:
             await interaction.response.send_message("You don't have the permission to use that button!", ephemeral = True)
@@ -40,14 +41,14 @@ class Confirm(View):
         """Cancel action"""
         # Check if the person who used the button is the author
         if interaction.user.id == self.ctx.author.id:
-            # Stop the view and return the value
-            self.stop()
-            self.value = False
-
             # Disable the buttons
             for child in self.children:
                 child.disabled = True  
             await interaction.response.edit_message(view = self)
+
+            # Stop the view and return the value
+            self.stop()
+            self.value = False
         else:
             await interaction.response.send_message("You don't have the permission to use that button!", ephemeral = True)
     
