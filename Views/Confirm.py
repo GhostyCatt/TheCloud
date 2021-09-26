@@ -12,10 +12,11 @@ with open('Config/Options.json') as RawOptions:
 
 # Confirm Button
 class Confirm(View):
-    def __init__(self, ctx):
+    def __init__(self, ctx:commands.Context):
         super().__init__(timeout = 30)
 
         self.ctx = ctx
+        self.value = None
     
 
     @button(label = '✔️', style = nextcord.ButtonStyle.green)
@@ -26,12 +27,11 @@ class Confirm(View):
             # Disable the buttons
             for child in self.children:
                 child.disabled = True  
+            await interaction.response.edit_message(view = self)
             
             # Stop the view and return the value
-            self.stop()
             self.value = True
-            
-            await interaction.response.edit_message(view = self)
+            self.stop()
         else:
             await interaction.response.send_message("You don't have the permission to use that button!", ephemeral = True)
 
@@ -47,8 +47,8 @@ class Confirm(View):
             await interaction.response.edit_message(view = self)
 
             # Stop the view and return the value
-            self.stop()
             self.value = False
+            self.stop()
         else:
             await interaction.response.send_message("You don't have the permission to use that button!", ephemeral = True)
     

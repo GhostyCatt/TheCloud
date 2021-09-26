@@ -49,7 +49,7 @@ class Developer(commands.Cog):
         # Add a confirm view to a embed and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to reload `{cog}`?")
-        await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -67,7 +67,10 @@ class Developer(commands.Cog):
                 else:
                     embed = await Fail(f"**`{cog}`** doesn't exist.")
                     await view.response.edit(embed = embed)
-            else:pass
+            
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
         except:pass
 
 
@@ -97,7 +100,7 @@ class Developer(commands.Cog):
         # Add a confirm view and send the embed
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to load `{cog}`?")
-        await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -116,7 +119,9 @@ class Developer(commands.Cog):
                 except commands.errors.ExtensionAlreadyLoaded:
                     embed = await Fail(f"**`{cog}`** was already loaded")
                     await view.response.edit(embed = embed)
-            else:pass
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
         except:pass
 
 
@@ -129,7 +134,7 @@ class Developer(commands.Cog):
         # Create a confirm message and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to unload `{cog}`?")
-        await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -148,7 +153,9 @@ class Developer(commands.Cog):
                 except commands.errors.ExtensionNotLoaded:
                     embed = await Fail(f"**`{cog}`** Was already unloaded")
                     await view.response.edit(embed = embed)
-            else:pass
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
         except:pass
     
 
@@ -161,7 +168,7 @@ class Developer(commands.Cog):
         # Create message with the confirm view and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to shutdown?")
-        await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -172,7 +179,9 @@ class Developer(commands.Cog):
                 await view.response.edit(embed = embed)
 
                 await self.bot.close()
-            else:pass           
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)         
         except:pass
 
 
@@ -185,7 +194,7 @@ class Developer(commands.Cog):
         # Create a message with the confirm view and send it
         view = Confirm(ctx)
         embed = await Success(f"Are you sure you want to restart?")
-        await ctx.send(embed = embed, view = view)
+        view.response = await ctx.send(embed = embed, view = view)
 
         try:
             await view.wait()
@@ -197,7 +206,8 @@ class Developer(commands.Cog):
                 
                 os.execv(sys.executable, ["python"] + sys.argv)
             else:
-                pass
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
         except:pass
     
 
