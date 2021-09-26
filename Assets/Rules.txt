@@ -1,3 +1,6 @@
+**Rules to be followed on TheCloud**
+
+
 **Section 1** - `Text Channels`
 
 `1.0` : No spamming. (Any message that is repeated more than three times will be considered spam.)
