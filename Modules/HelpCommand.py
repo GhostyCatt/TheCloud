@@ -39,7 +39,7 @@ class Help(commands.HelpCommand):
         # Create Embed
         embed = await Custom(
             f"The Cloud", 
-            f"For more help on specific modules, use the command `{prefix}help <module>` or `{prefix}help <command>`, or pick the module from the menu below."
+            f"An enhanced minecraft experience."
         )
 
         # Add a new field for every cog in the bot
@@ -49,10 +49,7 @@ class Help(commands.HelpCommand):
             if name in cog_ignore:
                 pass
             else:
-                embed.add_field(name = f"**{name}** [{len(commands)}]", value = f"`{prefix}help {name}`", inline = True)
-        
-        # Set embed footer
-        embed.set_footer(text = "The buttons on this command will stop working after 30 seconds.")
+                embed.add_field(name = f"**{name}**", value = f"`{prefix}help {name}`", inline = True)
         
         # Send embed with button interactions
         view = ButtonArrayMain(self.context, mapping, self, embed)

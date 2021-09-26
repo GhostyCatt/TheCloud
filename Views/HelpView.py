@@ -33,11 +33,11 @@ class Dropdown(Select):
             if name in cog_ignore:
                 pass
             else:
-                option = nextcord.SelectOption(label = f'{name} [{len(commands)}]', description = f'{description}', value = name)
+                option = nextcord.SelectOption(label = f'{name} - {len(commands)}', description = f'', value = name)
                 options.append(option)
 
         # Super init
-        super().__init__(placeholder = 'Choose the module you want to check out', min_values = 1, max_values = 1, options = options)
+        super().__init__(placeholder = 'Click here to choose a module...', min_values = 1, max_values = 1, options = options, row = 0)
 
 
     async def callback(self, interaction: nextcord.Interaction):
@@ -53,7 +53,7 @@ class Dropdown(Select):
                 if command_signatures:
                     commandslist = ""
                     for signature in command_signatures:
-                        commandslist += f"\n`{signature}`"
+                        commandslist += f"\n> `{signature}`"
 
                 # Create embed and send
                 embed = await Custom(f"{cog_name}", f"{cog_description}\n\n**Commands List**\n{commandslist}")
@@ -77,11 +77,11 @@ class ButtonArrayMain(View):
         self.help = helpcommand
         self.homepage = homepage
         
-        self.add_item(nextcord.ui.Button(label = "Website", url = Options['Website']))
+        self.add_item(nextcord.ui.Button(label = "Website", url = Options['Website'], row = 1))
         self.add_item(Dropdown(self.ctx, self.mapping, self.help, self.homepage))
     
 
-    @button(label = 'Minecraft IP\'s', style = nextcord.ButtonStyle.blurple)
+    @button(label = 'Minecraft', style = nextcord.ButtonStyle.blurple, row = 1)
     async def  dash_ips(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Send server ips from Assets"""
         with open('Assets/HelpIP.txt', 'r') as IPAsset:
@@ -91,7 +91,7 @@ class ButtonArrayMain(View):
         await interaction.response.send_message(embed = embed, ephemeral = True)
 
 
-    @button(label = 'About Me', style = nextcord.ButtonStyle.blurple)
+    @button(label = 'About', style = nextcord.ButtonStyle.blurple, row = 1)
     async def  help_info(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Send bot Info from Assets"""
         with open('Assets/HelpInfo.txt', 'r') as InfoAsset:
@@ -101,14 +101,11 @@ class ButtonArrayMain(View):
         await interaction.response.send_message(embed = embed, ephemeral = True)
 
 
-    @button(label = '❌', style = nextcord.ButtonStyle.red)
-    async def  dash_cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        """Disable all interactions"""
-        for child in self.children:
-            child.disabled = True  
-        await self.response.edit(view = self)
-        
-        self.stop()
+    @button(label = '🗑️', style = nextcord.ButtonStyle.red, row = 1)
+    async def  dismiss(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        """Dismiss all interactions"""
+        await self.ctx.message.delete()
+        await interaction.message.delete()
 
 
     async def on_timeout(self):
@@ -134,7 +131,7 @@ class ButtonArray(View):
         self.ctx = ctx
     
 
-    @button(label = 'ℹ️', style = nextcord.ButtonStyle.blurple)
+    @button(label = '🔍', style = nextcord.ButtonStyle.blurple)
     async def  help_info(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         """Send bot Info from Assets"""
         with open('Assets/HelpInfo.txt', 'r') as InfoAsset:
@@ -144,14 +141,11 @@ class ButtonArray(View):
         await interaction.response.send_message(embed = embed, ephemeral = True)
         
 
-    @button(label = '❌', style = nextcord.ButtonStyle.red)
-    async def  dash_cancel(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
-        """Disable all interactions"""
-        for child in self.children:
-            child.disabled = True  
-        await self.response.edit(view = self)
-        
-        self.stop()
+    @button(label = '🗑️', style = nextcord.ButtonStyle.red)
+    async def  dismiss(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
+        """Dismiss all interactions"""
+        await self.ctx.message.delete()
+        await interaction.message.delete()
 
 
     async def on_timeout(self):
