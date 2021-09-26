@@ -53,6 +53,7 @@ extensions = [
     "Events.Greetings",
     "Events.Announcements",
     "Events.Starboard",
+    "Events.Rep",
 
     # Commands #
     "Commands.Verify",
@@ -61,6 +62,7 @@ extensions = [
     "Commands.Application",
     "Commands.Roles",
     "Commands.Admin",
+    "Commands.Rep",
 
     # Modules #
     "Modules.ErrorHandler",

@@ -1,0 +1,31 @@
+{
+    "_id": null,
+
+    "Rep": {
+        "Upvotes": 0,
+        "Downvotes": 0,
+        "Total": 0
+    },
+
+    "Balance": {
+        "Bank": 0,
+        "Pocket": 0,
+        "MaxBank": 10000
+    },
+
+    "Experience": {
+        "Messages": 0,
+        "Level": 0
+    },
+
+    "Inventory": {
+        "Pet": {
+            "Type": null,
+            "Name": null,
+            "Hunger": 100,
+            "Fun": 100,
+            "Energy": 100
+        },
+        "Boost": null
+    }
+}
