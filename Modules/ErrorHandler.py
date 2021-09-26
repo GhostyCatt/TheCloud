@@ -7,27 +7,8 @@ from nextcord.ui import View, button
 from Functions.Embed import *
 from Views.Dismiss import Dismiss
 
+# Error Handler Class
 class CommandErrorHandler(commands.Cog):
-    """
-    Error Handler
-    -------------
-    
-    Contents: 
-    
-    * CommandNotFound: Ignore
-    * DisabledCommand
-    * CommandOnCooldown
-    * Missing Permissions
-    * BotMissingPermissions
-    * CheckAnyFailure
-    * NoPrivateMessage
-    * MissingRequiredArguements
-    * All pymongo errors: Fail Embed.
-    Command: 
-    * Repeat
-        Repeat any input.
-        Args: `Input`
-    """
     def __init__(self, bot):
         self.bot = bot
 
@@ -57,32 +38,27 @@ class CommandErrorHandler(commands.Cog):
         # Trigger if command used is disabled
         if isinstance(error, commands.DisabledCommand):
             embed = await Fail(f'{ctx.command} has been disabled.')
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if command used is on cooldown
         elif isinstance(error, commands.CommandOnCooldown):
             embed = await Fail(f'{ctx.command} is on cooldown. `{round(error.retry_after)}`')
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if author doens't meet permissions threshold
         elif isinstance(error, commands.MissingPermissions):
             embed = await Fail(f'You don\'t have the permissions to run {ctx.command}')
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if bot doesn't have the permissions needed to carry out a command
         elif isinstance(error, commands.BotMissingPermissions):
             embed = await Fail(f'I don\'t have enough permissions to handle the {ctx.command} command.')
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            await ctx.reply(embed = embed, mention_author = False)
 
         # Trigger if use doesn't have the required role to run a command
         elif isinstance(error, commands.MissingRole):
             embed = await Fail(f'You don\'t have the role required to run the {ctx.command} command.')
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if command can't be used in dms
         elif isinstance(error, commands.NoPrivateMessage):
@@ -93,23 +69,15 @@ class CommandErrorHandler(commands.Cog):
         
         # Trigger if any arguments are missing
         elif isinstance(error, commands.MissingRequiredArgument):
-            view = Dismiss()
-            view.response = await ctx.send_help(ctx.command)
-
+            await ctx.send_help(ctx.command)
+            
         # General error
         else:
-            embed = await Fail('Something went wrong in the command **{}**'.format(ctx.command))
-            view = Dismiss()
-            view.response = await ctx.reply(embed = embed, view = view, mention_author = False)
+            embed = await Fail(f'Something went wrong in the command {ctx.command}')
+            await ctx.reply(embed = embed, mention_author = False)
 
             print('Ignoring exception in command {}:'.format(ctx.command), file = sys.stderr)
             traceback.print_exception(type(error), error, error.__traceback__, file = sys.stderr)
-
-
-    @commands.command(name = 'repeat', aliases = ['mimic', 'copy'])
-    async def do_repeat(self, ctx, *, input: str):
-        """A simple command which repeats your input!"""
-        await ctx.reply(input, mention_author = False)
 
 
 # Add error handler to the bot
