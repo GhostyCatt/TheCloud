@@ -20,4 +20,19 @@ gh repo clone GhostyCatt/TheCloud
 
 ## Discord Application
 
-Coming Soon!
+To create a discord application, visit the link below
+
+**discord.com/developers/applications**
+
+There, click on `New Application` in the top right corner.
+After making your application, click on the "Bots" Section in the application, and add a bot to it!
+
+Once you have the bot, copy the bots `Token`, it should look something like :
+
+*`MjM4NDk0NzU2NTIxMzc3Nzky.CunGFQ.wUILz7z6HoJzVeq6pyHPmVgQgV4`*
+
+Now you can start building the bot!
+
+## Installing requirements
+
+- Coming soon
