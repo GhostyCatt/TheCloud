@@ -6,6 +6,7 @@
 `1.3` : Do not use racial slurs, post anything that is sexually inappropriate, content that contains violence, gore, or anything that makes the audience uncomfortable and unsafe. Keep this a PG - 13 server.
 `1.4` : Do not use inappropriate/offensive profile pictures/usernames/statuses.
 `1.5` : Do not mass ping the staff roles. Ping only once, only when absolutely necessary.
+`1.6` : Do not contact the owners / developers for any issues with the servers. Use the ticket system instead.
 
 **Section 2** - `Voice Channels`
 
@@ -24,3 +25,4 @@
 `3.3` : Do not beg for ranks/items.
 `3.4` : Do not unnecessarily kill members with inferior ranks. This may lead to a ban for 2 weeks (14 days)
 `3.5` : Do not attemt to login with other players usernames. This **will** lead to a permanent IP ban
+`3.6` : Abusing glitches is bannable.
