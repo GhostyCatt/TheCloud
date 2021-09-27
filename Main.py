@@ -1,5 +1,5 @@
 # Library Imports
-import nextcord, json, os, random
+import nextcord, json, os
 from nextcord.ext import commands
 from dotenv import load_dotenv
 from colorama import Fore, init
@@ -79,6 +79,7 @@ if __name__ == '__main__':
             print(Fore.LIGHTGREEN_EX + f"  [+] {extension}")
         except Exception as error:
             print(Fore.LIGHTRED_EX + f"  [-] {extension}")
+            print(error)
 
     print(Fore.LIGHTCYAN_EX + "[ ■ ] Finished loading extensions")
 

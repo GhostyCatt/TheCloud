@@ -1,21 +1,14 @@
 # Library Imports
-import nextcord, json, pymongo, os
-from nextcord.user import User
-from dotenv import load_dotenv
+import nextcord, json
 from nextcord.ext import commands
 
 # Custom Imports
 from Functions.Embed import *
+from Functions.Database import *
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
-
-# Get database
-load_dotenv()
-Client = pymongo.MongoClient(f"mongodb+srv://CloudBot:{os.getenv('MongoPassword')}@cluster0.hwg9f.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
-Database = Client['TheCloudDiscord']
-Collection = Database['UserData']
 
 # Rep Class
 class RepHandler(commands.Cog):
@@ -41,48 +34,34 @@ class RepHandler(commands.Cog):
         if message.author.bot:
             return
 
-        # Get the users profile from the database
-        UserProfile = Collection.find_one({ "_id": int(message.author.id) })
+        # Get Database connection
+        Conn = GetConn()
+        with Conn.cursor() as Cur:
+            Cur.execute(f'SELECT "Reputation" from "Data" WHERE "ID" = {message.author.id}')
+            Reputation = Cur.fetchone()
 
-        # If the profile doesn't exist, add it!
-        if not UserProfile:
-            with open('Config/Schema/UserData.json', 'r') as RawUserData:
-                UserData = json.load(RawUserData)
-            
-            UserData['_id'] = int(message.author.id)
-
-            Collection.insert_one(UserData)
-            UserProfile = UserData
+        # If user doesnt have a table, get variables for one
+        if not Reputation:
+            if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
+                Script = ('INSERT INTO "Data"("ID", "Reputation") VALUES(%s, %s)')
+                Values = (message.author.id, 1)
+            elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
+                Script = ('INSERT INTO "Data"("ID", "Reputation") VALUES(%s, %s)')
+                Values = (message.author.id, -1)
         
-        # Check if the reaction is an upvote or downvote
-        if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
-            CurrentVotes = UserProfile['Rep']['Upvotes']
-            TotalRep = UserProfile['Rep']['Total']
+        # Get scripts to update a table
+        else:
+            if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
+                Script = ('UPDATE "Data" SET "Reputation" = %s WHERE "ID" = %s')
+                Values = (Reputation[0] + 1, message.author.id)
+            elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
+                Script = ('UPDATE "Data" SET "Reputation" = %s WHERE "ID" = %s')
+                Values = (Reputation[0] - 1, message.author.id)
 
-            Collection.update_one(
-                { "_id" : int(message.author.id) }, 
-                { "$set" : { "Rep.Upvotes" : int(CurrentVotes + 1) } }
-            )
-            Collection.update_one(
-                { "_id" : int(message.author.id) }, 
-                { "$set" : { "Rep.Total" : int(TotalRep + 1) } }
-            )
-
-        
-        elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
-            CurrentVotes = UserProfile['Rep']['Downvotes']
-            TotalRep = UserProfile['Rep']['Total']
-
-            Collection.update_one(
-                { "_id" : int(message.author.id) }, 
-                { "$set" : { "Rep.Downvotes" : int(CurrentVotes + 1) } }
-            )
-            Collection.update_one(
-                { "_id" : int(message.author.id) }, 
-                { "$set" : { "Rep.Total" : int(TotalRep - 1) } }
-            )
-        
-        else: pass
+        with Conn.cursor() as Cur:
+            Cur.execute(Script, Values)
+            Conn.commit()
+            Conn.close()
             
 
 # Setup the bot
