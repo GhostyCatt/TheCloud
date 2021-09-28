@@ -42,11 +42,12 @@ class RepHandler(commands.Cog):
         
         # Get cursor and attempt to get reputation
         Cur = db.cursor()
-        Cur.execute("SELECT Reputation FROM `thecloud`.`reputation` WHERE UserID = {}".format(message.author.id))
-        Reputation = Cur.fetchone()
+        Cur.execute("SELECT * FROM `thecloud`.`reputation` WHERE UserID = {}".format(message.author.id))
+        Profile = Cur.fetchone()
+        
 
         # If no reputation was found, get args to insert a new row
-        if not Reputation:
+        if not Profile:
             if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
                 Script = ('INSERT INTO `thecloud`.`reputation`(UserID, Reputation, Upvotes) VALUES(%s, %s, %s)')
                 Values = (message.author.id, 1, 1)
@@ -57,11 +58,11 @@ class RepHandler(commands.Cog):
         # If rep was found, update it
         else:
             if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
-                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s WHERE UserID = %s')
-                Values = (Reputation[0] + 1, message.author.id)
+                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s, Upvotes = %s WHERE UserID = %s')
+                Values = (Profile[1] + 1, Profile[2] + 1, message.author.id)
             elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
-                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s WHERE UserID = %s')
-                Values = (Reputation[0] - 1, message.author.id)
+                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s, Downvotes = %s WHERE UserID = %s')
+                Values = (Profile[1] - 1, Profile[3] + 1, message.author.id)
         
         # Execute the args
         Cur.execute(Script, Values)

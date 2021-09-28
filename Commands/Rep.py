@@ -37,19 +37,19 @@ class Rep(commands.Cog):
 
         # Get cursor and attempt to get reputation
         Cur = db.cursor()
-        Cur.execute("SELECT Reputation FROM `thecloud`.`reputation` WHERE UserID = {}".format(user.id))
-        Reputation = Cur.fetchone()
+        Cur.execute("SELECT * FROM `thecloud`.`reputation` WHERE UserID = {}".format(user.id))
+        Profile = Cur.fetchone()
 
         # Check if the profile exists, if not, send an embed
-        if not Reputation:
-            await Fail(f"You don't have any rep yet!", ctx)
+        if not Profile:
+            await Fail(f"You don't have any rep yet!\n\nNote: Rep is handled using {Options['Emojis']['Upvote']} & {Options['Emojis']['Downvote']} reactions.", ctx)
             return
         
         # Construct the profile embed
         embed = await Custom(
             f"{user}",
-            f"Your reputation on this server is: **{Reputation[0]}**!\n\nNote: Rep is handled using {Options['Emojis']['Upvote']} & {Options['Emojis']['Downvote']} reactions."
-        )
+            f"Your reputation on this server is: **{Profile[1]}**!\nUpvotes: {Profile[2]}\nDownvotes : {Profile[3]}"
+        )   
         embed.set_thumbnail(url = user.avatar.url)
 
         # Send the profile embed
