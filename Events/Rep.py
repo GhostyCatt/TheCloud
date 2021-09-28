@@ -1,21 +1,20 @@
 # Library Imports
-import nextcord, json
+import nextcord, json, mysql.connector, os
 from nextcord.ext import commands
-
-# Custom Imports
-from Functions.Embed import *
-from Functions.Database import *
+from dotenv import load_dotenv
+load_dotenv()
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 
-# Rep Class
+# Reputation Class
 class RepHandler(commands.Cog):
-    def __init__(self, bot:commands.Bot):
+    """The class that handles all rep related features"""
+    def __init__(self, bot):
         self.bot = bot
-
     
+
     @commands.Cog.listener('on_raw_reaction_add')
     async def  RepDetection(self, payload:nextcord.RawReactionActionEvent):
         """Triggered when a reaction is added"""
@@ -33,37 +32,46 @@ class RepHandler(commands.Cog):
         # Return if its a bot
         if message.author.bot:
             return
+        
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+        
+        # Get cursor and attempt to get reputation
+        Cur = db.cursor()
+        Cur.execute("SELECT Reputation FROM `thecloud`.`reputation` WHERE UserID = {}".format(message.author.id))
+        Reputation = Cur.fetchone()
 
-        # Get Database connection
-        Conn = GetConn()
-        with Conn.cursor() as Cur:
-            Cur.execute(f'SELECT "Reputation" from "Data" WHERE "ID" = {message.author.id}')
-            Reputation = Cur.fetchone()
-
-        # If user doesnt have a table, get variables for one
+        # If no reputation was found, get args to insert a new row
         if not Reputation:
             if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
-                Script = ('INSERT INTO "Data"("ID", "Reputation") VALUES(%s, %s)')
-                Values = (message.author.id, 1)
+                Script = ('INSERT INTO `thecloud`.`reputation`(UserID, Reputation, Upvotes) VALUES(%s, %s, %s)')
+                Values = (message.author.id, 1, 1)
             elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
-                Script = ('INSERT INTO "Data"("ID", "Reputation") VALUES(%s, %s)')
-                Values = (message.author.id, -1)
+                Script = ('INSERT INTO `thecloud`.`reputation`(UserID, Reputation, Downvotes) VALUES(%s, %s, %s)')
+                Values = (message.author.id, 1, -1)
         
-        # Get scripts to update a table
+        # If rep was found, update it
         else:
             if payload.emoji.id == Options['Emojis']['ID']['Upvote']:
-                Script = ('UPDATE "Data" SET "Reputation" = %s WHERE "ID" = %s')
+                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s WHERE UserID = %s')
                 Values = (Reputation[0] + 1, message.author.id)
             elif payload.emoji.id == Options['Emojis']['ID']['Downvote']:
-                Script = ('UPDATE "Data" SET "Reputation" = %s WHERE "ID" = %s')
+                Script = ('UPDATE `thecloud`.`reputation` SET Reputation = %s WHERE UserID = %s')
                 Values = (Reputation[0] - 1, message.author.id)
+        
+        # Execute the args
+        Cur.execute(Script, Values)
 
-        with Conn.cursor() as Cur:
-            Cur.execute(Script, Values)
-            Conn.commit()
-            Conn.close()
-            
+        # Close and commit everything
+        Cur.close()
+        db.commit()
+        db.close()
 
+    
 # Setup the bot
 def setup(bot:commands.Bot):
     bot.add_cog(RepHandler(bot))

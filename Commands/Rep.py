@@ -1,10 +1,11 @@
 # Library Imports
-import nextcord, json
+import nextcord, json, mysql.connector, os
 from nextcord.ext import commands
+from dotenv import load_dotenv
+load_dotenv()
 
 # Custom Imports
 from Functions.Embed import *
-from Functions.Database import *
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
@@ -27,12 +28,17 @@ class Rep(commands.Cog):
         if not user:
             user = ctx.author
         
-        # Get Database connection
-        Conn = GetConn()
-        with Conn.cursor() as Cur:
-            Cur.execute(f'SELECT "Reputation" from "Data" WHERE "ID" = {user.id}')
-            Reputation = Cur.fetchone()
-        
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+
+        # Get cursor and attempt to get reputation
+        Cur = db.cursor()
+        Cur.execute("SELECT Reputation FROM `thecloud`.`reputation` WHERE UserID = {}".format(user.id))
+        Reputation = Cur.fetchone()
 
         # Check if the profile exists, if not, send an embed
         if not Reputation:
