@@ -48,7 +48,7 @@ class Rep(commands.Cog):
         # Construct the profile embed
         embed = await Custom(
             f"{user}",
-            f"Your reputation on this server is: **{Profile[1]}**!\nUpvotes: {Profile[2]}\nDownvotes : {Profile[3]}"
+            f"Your reputation on this server is: **{Profile[1]}**!\nUpvotes: **{Profile[2]}**\nDownvotes : **{Profile[3]}**"
         )   
         embed.set_thumbnail(url = user.avatar.url)
 
