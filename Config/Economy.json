@@ -1,0 +1,162 @@
+{
+    "Pets": {
+        "Chicken": {
+            "Name": "Chicken",
+            "Icon": "<a:Chicken:892676433867075594>",
+            "Cost": 10000,
+            "Stats": {
+                "Health": 10,
+                "Hunger": 10
+            },
+            "Abilities": {
+                "Luck": 5,
+                "Bonus": 5
+            },
+            "Rewards": {
+                "Coins": 20,
+                "Box": 5,
+                "Powerup": 0,
+                "Gadget": 0
+            }
+        },
+
+        "Cow": {
+            "Name": "Cow",
+            "Icon": "<a:Cow:892676433472794675>",
+            "Cost": 20000,
+            "Stats": {
+                "Health": 20,
+                "Hunger": 20
+            },
+            "Abilities": {
+                "Luck": 5,
+                "Bonus": 5
+            },
+            "Rewards": {
+                "Coins": 30,
+                "Box": 10,
+                "Powerup": 5,
+                "Gadget": 5
+            }
+        },
+
+        "Cat": {
+            "Name": "Cat",
+            "Icon": "<a:Cat:892676434177425418>",
+            "Cost": 30000,
+            "Stats": {
+                "Health": 50,
+                "Hunger": 50
+            },
+            "Abilities": {
+                "Luck": 10,
+                "Bonus": 10
+            },
+            "Rewards": {
+                "Coins": 50,
+                "Box": 10,
+                "Powerup": 10,
+                "Gadget": 10
+            }
+        },
+
+        "Hamster": {
+            "Name": "Hamster",
+            "Icon": "<a:Hamster:892676433959350282>",
+            "Cost": 40000,
+            "Stats": {
+                "Health": 20,
+                "Hunger": 20
+            },
+            "Abilities": {
+                "Luck": 15,
+                "Bonus": 10
+            },
+            "Rewards": {
+                "Coins": 100,
+                "Box": 20,
+                "Powerup": 10,
+                "Gadget": 10
+            }
+        }
+    },
+
+    "Boxes": {
+        "Lemon": {
+            "Name": "Lemon",
+            "Icon": "<:Lemon:892681592739340288>",
+            "Rewards": {
+                "Coins": [100, 1000]
+            }
+        },
+
+        "Blueberry": {
+            "Name": "Blueberry",
+            "Icon": "<:Blueberry:892681592940675122>",
+            "Rewards": {
+                "Coins": [100, 5000]
+            }
+        },
+
+        "Grape": {
+            "Name": "Grape",
+            "Icon": "<:Grape:892681593032957962>",
+            "Rewards": {
+                "Coins": [100, 10000]
+            }
+        }
+    },
+
+    "Gadgets": {
+        "Banknote": {
+            "Name": "Banknote",
+            "Icon": "<a:Banknote:892689258723287050>",
+            "Rewards": {
+                "Coins": [10, 1000],
+                "Space": [10000, 50000]
+            }
+        }
+    },
+
+    "Powerups": {
+        "Cookie": {
+            "Name": "Cookies",
+            "Icon": "<:Cake:892689240784269332>",
+            "Cost": 100000,
+            "Abilities": {
+                "Luck": 20,
+                "Bonus": 10
+            }
+        },
+
+        "Pancake": {
+            "Name": "Pancakes",
+            "Icon": "<:Pancakes:892689240717139989>",
+            "Cost": 200000,
+            "Abilities": {
+                "Luck": 30,
+                "Bonus": 20
+            }
+        },
+
+        "Dount": {
+            "Name": "Dount",
+            "Icon": "<:Dount:892689241337897011>",
+            "Cost": 200000,
+            "Abilities": {
+                "Luck": 35,
+                "Bonus": 25
+            }
+        },
+
+        "Cake": {
+            "Name": "Cake",
+            "Icon": "<:Cake:892689240784269332>",
+            "Cost": 200000,
+            "Abilities": {
+                "Luck": 40,
+                "Bonus": 50
+            }
+        }
+    }
+}

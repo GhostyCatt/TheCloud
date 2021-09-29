@@ -63,6 +63,7 @@ extensions = [
     "Commands.Roles",
     "Commands.Admin",
     "Commands.Rep",
+    "Commands.Economy",
 
     # Modules #
     "Modules.ErrorHandler",
