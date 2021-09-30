@@ -71,9 +71,13 @@ class EcoHandler(commands.Cog):
     
 
     @commands.command(name = "Profile", aliases = ["Prof"])
-    async def  profile(self, ctx:commands.Context):
+    async def  profile(self, ctx:commands.Context, user: nextcord.Member = None):
         """Check our your profile"""
         await ctx.channel.trigger_typing()
+
+        # Set user to author
+        if not user:
+            user = ctx.author
 
         # Connect to database
         db = mysql.connector.connect(
@@ -84,7 +88,7 @@ class EcoHandler(commands.Cog):
         Cur = db.cursor()
 
         # Fetch the users profile
-        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {ctx.author.id}")
+        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {user.id}")
         Profile = Cur.fetchone()
 
         if not Profile:
@@ -97,8 +101,8 @@ class EcoHandler(commands.Cog):
 
         # Build up the embed
         embed = await Custom(
-            f"{ctx.author}'s Profile",
-            f"This is {ctx.author.name}'s profile on TheCloud!"
+            f"{user}'s Profile",
+            f"This is {user.name}'s profile on TheCloud!"
         )
         embed.add_field(name = "Balance", value = f"{Options['Emojis']['Coin']} {Profile[1]} / {Profile[2]}", inline = False)
         embed.add_field(name = "Powerup", value = f"{Profile[4]}", inline = False)
@@ -107,7 +111,7 @@ class EcoHandler(commands.Cog):
         else: 
             PetProfile = Eco['Pets'][Profile[9]]
             embed.add_field(name = "Pet", value = f"{PetProfile['Icon']} {PetProfile['Name']} ( **{Profile[10]}** )", inline = False)
-        if ctx.author.avatar.url: embed.set_thumbnail(url = ctx.author.avatar.url)
+        if user.avatar.url: embed.set_thumbnail(url = user.avatar.url)
 
         # Send the embed
         await ctx.send(embed = embed)
@@ -186,6 +190,46 @@ class EcoHandler(commands.Cog):
         # Close connections
         Cur.close()
         db.close()
+
+
+    @commands.command(name = "Balance", aliases = ["Bal"])
+    async def  bal(self, ctx:commands.Context, user: nextcord.Member = None):
+        """Check our your balance"""
+        await ctx.channel.trigger_typing()
+
+        # Set user to author
+        if not user:
+            user = ctx.author
+
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+        Cur = db.cursor()
+
+        # Fetch the users profile
+        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {user.id}")
+        Profile = Cur.fetchone()
+
+        if not Profile:
+            await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            return
+
+        # Close connections
+        Cur.close()
+        db.close()
+
+        # Build up the embed
+        embed = await Custom(
+            f"{user}'s Profile",
+            f"Pocket : {Options['Emojis']['Coin']} {Profile[1]}\nBank : {Options['Emojis']['Coin']} {Profile[2]} / {Profile[3]} "  
+        )
+        if user.avatar.url: embed.set_thumbnail(url = user.avatar.url)
+
+        # Send the embed
+        await ctx.send(embed = embed)
 
     
 # Setup the bot
