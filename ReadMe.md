@@ -1,6 +1,6 @@
 # The Cloud Official
 
-> Version : `v1.0.1`
+> Version : `v1.1.0`
 
 This is the source code for the offical CloudBot made for [The Cloud](https://discord.gg/EGgYPZTnZV). This code is lisenced under the **MIT License** and can be used by others freely.
 
