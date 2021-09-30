@@ -6,12 +6,15 @@ load_dotenv()
 
 # Custom Imports
 from Functions.Embed import *
+from Views.Work import WorkView
 
 # Options from Json
 with open('Config/Options.json') as RawOptions:
     Options = json.load(RawOptions)
 with open('Config/Economy.json') as RawEco:
     Eco = json.load(RawEco)
+with open('Config/Work.json') as RawWork:
+    Work = json.load(RawWork)
 
 # Reputation Class
 class EcoHandler(commands.Cog):
@@ -108,6 +111,81 @@ class EcoHandler(commands.Cog):
 
         # Send the embed
         await ctx.send(embed = embed)
+
+    @commands.command(name = "Work", aliases = ["Job"])
+    async def  work(self, ctx:commands.Context):
+        """Earn some MONEYYY"""
+        await ctx.channel.trigger_typing()
+
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+        Cur = db.cursor()
+
+        # Fetch the users profile
+        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {ctx.author.id}")
+        Profile = Cur.fetchone()
+
+        if not Profile:
+            await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            return
+
+        # Decide the challenge
+        Question = random.choice(random.choice(Work['Work'])['Questions'])
+        
+        # Build the question embed
+        Shuffled = Question['Options'].copy()
+        random.shuffle(Shuffled)
+        OptionsStr = ''
+        Count = 1
+        for Option in Shuffled:
+            OptionsStr += f"**[`{Count}`]** {Option}\n"
+            Count += 1
+
+        # Send the embed
+        embed = await Custom(title = f"{Question['Question']}", description = OptionsStr)
+        view = WorkView(ctx)
+
+        await ctx.send(embed = embed, view = view)
+        
+        # Decide reward
+        RewardBase = random.randint(100, 4000)
+        Reward = RewardBase
+        if Profile[9]: # Add pet bonus
+            Reward += Eco['Pets'][Profile[9]]['Abilities']['Bonus']
+        if Profile[4]: # Add powerup bonus
+            Reward += Profile[4]
+
+        # Wait for the user to select an option, of correct, dep coins :]
+        try:
+            await view.wait()
+
+            if view.value == 0:
+                if Question['Options'][0] == Shuffled[0]:
+                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
+                    db.commit()
+                else: await Fail(f"That's not the answer...")
+            elif view.value == 1:
+                if Question['Options'][0] == Shuffled[1]:
+                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
+                    db.commit()
+                else: await Fail(f"That's not the answer...")
+            elif view.value == 2:
+                if Question['Options'][0] == Shuffled[2]:
+                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
+                    db.commit()
+                else: await Fail(f"That's not the answer...", ctx)
+        except:pass
+        
+        # Close connections
+        Cur.close()
+        db.close()
 
     
 # Setup the bot
