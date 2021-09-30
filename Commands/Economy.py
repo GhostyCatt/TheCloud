@@ -17,7 +17,7 @@ with open('Config/Work.json') as RawWork:
     Work = json.load(RawWork)
 
 # Reputation Class
-class EcoHandler(commands.Cog):
+class Economy(commands.Cog):
     """The class that handles all economy related features"""
     def __init__(self, bot):
         self.bot = bot
@@ -360,4 +360,4 @@ class EcoHandler(commands.Cog):
     
 # Setup the bot
 def setup(bot:commands.Bot):
-    bot.add_cog(EcoHandler(bot))
+    bot.add_cog(Economy(bot))
