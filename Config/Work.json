@@ -24,17 +24,6 @@
             ]
         },
         {
-            "Name": "General",
-            "Questions": [
-                {
-                    "Question": "Unscramble `ehlutdoc`",
-                    "Options": [
-                        "TheCloud", "Clouted", "Touche"
-                    ]
-                }
-            ]
-        },
-        {
             "Name": "Number",
             "Questions": [
                 {
@@ -77,24 +66,6 @@
                     "Question": "Guess what number am I thinking of",
                     "Options": [
                         "3", "6", "5"
-                    ]
-                },
-                {
-                    "Question": "Guess what number am I thinking of",
-                    "Options": [
-                        "5", "6", "3"
-                    ]
-                },
-                {
-                    "Question": "Guess what number am I thinking of",
-                    "Options": [
-                        "69", "24", "11"
-                    ]
-                },
-                {
-                    "Question": "Guess what number am I thinking of",
-                    "Options": [
-                        "51", "52", "61"
                     ]
                 }
             ]

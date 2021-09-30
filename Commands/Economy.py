@@ -165,19 +165,19 @@ class EcoHandler(commands.Cog):
 
             if view.value == 0:
                 if Question['Options'][0] == Shuffled[0]:
-                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    await Success(f"That's correct! `{RewardBase}` coins were added to your account!\nBonus Coins: {Reward - RewardBase}", ctx)
                     Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
                     db.commit()
                 else: await Fail(f"That's not the answer...", ctx)
             elif view.value == 1:
                 if Question['Options'][0] == Shuffled[1]:
-                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    await Success(f"That's correct! `{RewardBase}` coins were added to your account!\nBonus Coins: {Reward - RewardBase}", ctx)
                     Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
                     db.commit()
                 else: await Fail(f"That's not the answer...", ctx)
             elif view.value == 2:
                 if Question['Options'][0] == Shuffled[2]:
-                    await Success(f"That's correct! {Reward} coins were added to your account!", ctx)
+                    await Success(f"That's correct! `{RewardBase}` coins were added to your account!\nBonus Coins: {Reward - RewardBase}", ctx)
                     Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s WHERE UserID = %s", (Profile[1] + Reward, ctx.author.id))
                     db.commit()
                 else: await Fail(f"That's not the answer...", ctx)
