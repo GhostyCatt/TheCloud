@@ -275,14 +275,19 @@ class EcoHandler(commands.Cog):
             return
 
         # Check if the deposit is possible
-        if Profile[1] < amount: 
+        if not Profile[2]: Bank = Profile[2]
+        else: Bank = Profile[2]
+        if not Profile[1]: Pocket = Profile[1]
+        else: Pocket = Profile[1]
+
+        if Pocket < amount: 
             await Fail(f"You don't have {amount} in your pocket...", ctx)
 
             # Close connections
             Cur.close()
             db.close()
             return
-        if Profile[2] + amount > Profile[3]:
+        if Bank + amount > Profile[3]:
             await Fail(f"Your bank doens't seem to have that much space...", ctx)
 
             # Close connections
@@ -291,7 +296,7 @@ class EcoHandler(commands.Cog):
             return
 
         # Modify the db
-        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Profile[1] - amount, Profile[2] + amount, ctx.author.id))
+        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Pocket - amount, Bank + amount, ctx.author.id))
         db.commit()
         
         # Send a success embed
@@ -302,9 +307,9 @@ class EcoHandler(commands.Cog):
         db.close()
 
     
-    @commands.command(name = "Deposit", aliases = ["Dep"])
-    async def  deposit(self, ctx:commands.Context, amount: int):
-        """Deposit money from your pocket to your bank"""
+    @commands.command(name = "Withdraw", aliases = ["With"])
+    async def  withdraw(self, ctx:commands.Context, amount: int):
+        """Withdraw money from your pocket to your bank"""
         await ctx.channel.trigger_typing()
 
         # Connect to database
@@ -328,7 +333,12 @@ class EcoHandler(commands.Cog):
             return
 
         # Check if the deposit is possible
-        if Profile[2] < amount: 
+        if not Profile[2]: Bank = Profile[2]
+        else: Bank = Profile[2]
+        if not Profile[1]: Pocket = Profile[1]
+        else: Pocket = Profile[1]
+        
+        if Bank < amount: 
             await Fail(f"You don't have {amount} in your bank...", ctx)
 
             # Close connections
@@ -337,7 +347,7 @@ class EcoHandler(commands.Cog):
             return
 
         # Modify the db
-        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Profile[1] + amount, Profile[2] - amount, ctx.author.id))
+        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Pocket + amount, Bank - amount, ctx.author.id))
         db.commit()
         
         # Send a success embed
