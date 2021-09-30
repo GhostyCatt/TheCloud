@@ -48,7 +48,7 @@ class CommandErrorHandler(commands.Cog):
         
         # Trigger if command used is on cooldown
         elif isinstance(error, commands.CommandOnCooldown):
-            embed = await Fail(f'{ctx.command} is on cooldown. `{self.timeconverter(error.retry_after)}`')
+            embed = await Fail(f'{ctx.command} is on cooldown. `{self.timeconverter(round(error.retry_after))}`')
             await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if author doens't meet permissions threshold
