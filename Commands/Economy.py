@@ -275,9 +275,9 @@ class EcoHandler(commands.Cog):
             return
 
         # Check if the deposit is possible
-        if not Profile[2]: Bank = Profile[2]
+        if not Profile[2]: Bank = 0
         else: Bank = Profile[2]
-        if not Profile[1]: Pocket = Profile[1]
+        if not Profile[1]: Pocket = 0
         else: Pocket = Profile[1]
 
         if Pocket < amount: 
@@ -333,11 +333,11 @@ class EcoHandler(commands.Cog):
             return
 
         # Check if the deposit is possible
-        if not Profile[2]: Bank = Profile[2]
+        if not Profile[2]: Bank = 0
         else: Bank = Profile[2]
-        if not Profile[1]: Pocket = Profile[1]
+        if not Profile[1]: Pocket = 0
         else: Pocket = Profile[1]
-        
+
         if Bank < amount: 
             await Fail(f"You don't have {amount} in your bank...", ctx)
 
