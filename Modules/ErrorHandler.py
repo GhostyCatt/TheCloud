@@ -13,14 +13,10 @@ class CommandErrorHandler(commands.Cog):
         self.bot = bot
 
     
-    def time(seconds):
-        seconds = seconds % (24 * 3600)
-        hour = seconds // 3600
-        seconds %= 3600
-        minutes = seconds // 60
-        seconds %= 60
-        
-        return "%dh : %02dm : %02ds" % (hour, minutes, seconds)
+    def timeconverter(self, seconds:int):
+        min, sec = divmod(seconds, 60)
+        hour, min = divmod(min, 60)
+        return "%dh : %02dm : %02ds" % (hour, min, sec)
 
 
     @commands.Cog.listener('on_command_error')
@@ -52,7 +48,7 @@ class CommandErrorHandler(commands.Cog):
         
         # Trigger if command used is on cooldown
         elif isinstance(error, commands.CommandOnCooldown):
-            embed = await Fail(f'{ctx.command} is on cooldown. `{self.time(round(error.retry_after))}`')
+            embed = await Fail(f'{ctx.command} is on cooldown. `{self.timeconverter(error.retry_after)}`')
             await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if author doens't meet permissions threshold
