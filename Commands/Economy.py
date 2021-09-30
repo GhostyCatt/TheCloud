@@ -42,6 +42,10 @@ class EcoHandler(commands.Cog):
 
         if Profile:
             await Fail("You already have a profile!", ctx)
+            
+            # Close connections
+            Cur.close()
+            db.close()
             return
         
         # Build up profile [ 5% chance for lemon box ]
@@ -93,6 +97,10 @@ class EcoHandler(commands.Cog):
 
         if not Profile:
             await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+
+            # Close connections
+            Cur.close()
+            db.close()
             return
 
         # Close connections
@@ -117,6 +125,7 @@ class EcoHandler(commands.Cog):
         await ctx.send(embed = embed)
 
     @commands.command(name = "Work", aliases = ["Job"])
+    @commands.cooldown(1, 500, commands.BucketType.member)
     async def  work(self, ctx:commands.Context):
         """Earn some MONEYYY"""
         await ctx.channel.trigger_typing()
@@ -135,6 +144,10 @@ class EcoHandler(commands.Cog):
 
         if not Profile:
             await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            
+            # Close connections
+            Cur.close()
+            db.close()
             return
 
         # Decide the challenge
@@ -215,6 +228,10 @@ class EcoHandler(commands.Cog):
 
         if not Profile:
             await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            
+            # Close connections
+            Cur.close()
+            db.close()
             return
 
         # Close connections
@@ -230,6 +247,105 @@ class EcoHandler(commands.Cog):
 
         # Send the embed
         await ctx.send(embed = embed)
+
+
+    @commands.command(name = "Deposit", aliases = ["Dep"])
+    async def  deposit(self, ctx:commands.Context, amount: int):
+        """Deposit money from your pocket to your bank"""
+        await ctx.channel.trigger_typing()
+
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+        Cur = db.cursor()
+
+        # Fetch the users profile
+        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {ctx.author.id}")
+        Profile = Cur.fetchone()
+
+        if not Profile:
+            await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            
+            # Close connections
+            Cur.close()
+            db.close()
+            return
+
+        # Check if the deposit is possible
+        if Profile[1] < amount: 
+            await Fail(f"You don't have {amount} in your pocket...", ctx)
+
+            # Close connections
+            Cur.close()
+            db.close()
+            return
+        if Profile[2] + amount > Profile[3]:
+            await Fail(f"Your bank doens't seem to have that much space...", ctx)
+
+            # Close connections
+            Cur.close()
+            db.close()
+            return
+
+        # Modify the db
+        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Profile[1] - amount, Profile[2] + amount, ctx.author.id))
+        db.commit()
+        
+        # Send a success embed
+        await Success(f"{Options['Emojis']['Coin']} {amount} was deposited to your bank!", ctx)
+
+        # Close connections
+        Cur.close()
+        db.close()
+
+    
+    @commands.command(name = "Deposit", aliases = ["Dep"])
+    async def  deposit(self, ctx:commands.Context, amount: int):
+        """Deposit money from your pocket to your bank"""
+        await ctx.channel.trigger_typing()
+
+        # Connect to database
+        db = mysql.connector.connect(
+            host = str(os.getenv("Host")),
+            user = "ghostyy",
+            passwd = str(os.getenv("Password"))
+        )
+        Cur = db.cursor()
+
+        # Fetch the users profile
+        Cur.execute(f"SELECT * FROM `thecloud`.`economy` WHERE UserID = {ctx.author.id}")
+        Profile = Cur.fetchone()
+
+        if not Profile:
+            await Fail(f"You don't have a profile! Make one with `{Options['Prefix']}reg`", ctx)
+            
+            # Close connections
+            Cur.close()
+            db.close()
+            return
+
+        # Check if the deposit is possible
+        if Profile[2] < amount: 
+            await Fail(f"You don't have {amount} in your bank...", ctx)
+
+            # Close connections
+            Cur.close()
+            db.close()
+            return
+
+        # Modify the db
+        Cur.execute("UPDATE `thecloud`.`economy` SET Pocket = %s, Bank = %s WHERE UserID = %s", (Profile[1] + amount, Profile[2] - amount, ctx.author.id))
+        db.commit()
+        
+        # Send a success embed
+        await Success(f"{Options['Emojis']['Coin']} {amount} was withdrawn to your bank!", ctx)
+
+        # Close connections
+        Cur.close()
+        db.close()
 
     
 # Setup the bot
