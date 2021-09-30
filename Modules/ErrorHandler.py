@@ -1,5 +1,5 @@
 # Library Imports
-import nextcord, traceback, sys, pymongo
+import nextcord, traceback, sys
 from nextcord.ext import commands
 from nextcord.ui import View, button
 
@@ -11,6 +11,16 @@ from Views.Dismiss import Dismiss
 class CommandErrorHandler(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    
+    def time(seconds):
+        seconds = seconds % (24 * 3600)
+        hour = seconds // 3600
+        seconds %= 3600
+        minutes = seconds // 60
+        seconds %= 60
+        
+        return "%dh : %02dm : %02ds" % (hour, minutes, seconds)
 
 
     @commands.Cog.listener('on_command_error')
@@ -42,7 +52,7 @@ class CommandErrorHandler(commands.Cog):
         
         # Trigger if command used is on cooldown
         elif isinstance(error, commands.CommandOnCooldown):
-            embed = await Fail(f'{ctx.command} is on cooldown. `{round(error.retry_after)}`')
+            embed = await Fail(f'{ctx.command} is on cooldown. `{self.time(round(error.retry_after))}`')
             await ctx.reply(embed = embed, mention_author = False)
         
         # Trigger if author doens't meet permissions threshold
