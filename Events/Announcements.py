@@ -18,6 +18,9 @@ class Tags(commands.Cog):
     @commands.Cog.listener('on_message')
     async def  TagsDetection(self, message:nextcord.Message):
         """Triggered when a user leaves the server"""
+        # Bot check
+        if message.author.bot: return
+
         # Set a variable for the message
         Object = message
 
