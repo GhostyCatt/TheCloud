@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from colorama import Fore, init
 
 # Custom Imports
-from Modules.HelpCommand import Help
+from Modules.Help import Help
 from Server.WebServer import Start
 from Views.Verify import VerifyView
 from Views.Support import SupportView, StaffAppView
