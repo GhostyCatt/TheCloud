@@ -64,6 +64,7 @@ extensions = [
     "Commands.Admin",
     "Commands.Rep",
     "Commands.Economy",
+    "Commands.Essentials",
 
     # Modules #
     "Modules.ErrorHandler",
