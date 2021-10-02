@@ -22,9 +22,9 @@ class Help(commands.HelpCommand):
         """Get a clean command usage string"""
         return '%s%s %s' % (Options['Prefix'], command.qualified_name, command.signature)
 
-    async def get_select_options(self) -> list[nextcord.SelectOption]:
+    async def get_select_options(self) -> list:
         """Get a list of options for the dropdown"""
-        options: list[nextcord.SelectOption] = [
+        options = [
             nextcord.SelectOption(label = "Home", emoji = "🏠")
         ]
 

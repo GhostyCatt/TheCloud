@@ -11,7 +11,7 @@ with open('Config/Options.json') as RawOptions:
 
 # Help Dropdown
 class Dropdown(Select):
-    def __init__(self, help, options: list[nextcord.SelectOption]):  
+    def __init__(self, help, options):  
         self.helpcommand = help  
         super().__init__(placeholder = 'Select a module here...', min_values = 1, max_values = 1, options = options, row = 0)
 
@@ -22,7 +22,7 @@ class Dropdown(Select):
     
 
 class HelpView(View):
-    def __init__(self, help, options:list[nextcord.SelectOption]):
+    def __init__(self, help, options):
         super().__init__(timeout = 30)
         self.helpcommand = help
         
