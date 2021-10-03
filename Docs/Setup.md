@@ -35,4 +35,39 @@ Now you can start building the bot!
 
 ## Installing requirements
 
-- Coming soon
+**Required Libraries** : 
+
+* python-dotenv = "^0.19.0"
+* colorama = "^0.4.4"
+* Flask = "^2.0.1"
+* pymongo = "^3.12.0"
+* nextcord = "^2.0.0-alpha.3"
+* mysql-connector = "^2.2.9"
+
+You can install all these libraries using the `pip install` command in the console.
+
+## Setting up
+
+**Environment Variables**
+
+You will need to create a `.Env` file in the same directory as the `Main.py` file.
+
+```
+DiscordToken=
+Host=
+Password=
+```
+
+Use this template. The `Host` and `Password` are used to connect with a MySQL database
+
+**Database**
+
+Assuming you have a database setup (which you need to have), you will need to go though the files and replace the table names / database names from the sql statements with the deetails of your database
+
+**Options**
+
+In the config folder, theres a `Options.json` file, you will need to modify the values of most of these variables!
+
+## Running 
+
+The bot can be started by a simple `python3 Main.py` command in the console. Join our [Discord server](https://discord.gg/qw3gGzz4w2) if you run into any problems with the bot or if you want to be a part of our community!
