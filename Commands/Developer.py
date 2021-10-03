@@ -1,7 +1,6 @@
 # Library Imports
 import nextcord, json, os, sys
 from nextcord.ext import commands
-from nextcord.ext.commands.flags import F
 
 # Custom Imports
 from Functions.Embed import *
@@ -227,10 +226,8 @@ class Developer(commands.Cog):
 
             # If the action was confirmed, restart the code
             if view.value:
-                for command in self.bot.commands:
-                    if command.name.lower() == name.lower():
-                        command.update(enabled = False)
-                        break
+                command = ctx.bot.get_command(name)
+                command.enabled = False
 
                 embed = await Success(f"{command} was disabled")
                 await view.response.edit(embed = embed)
@@ -256,10 +253,8 @@ class Developer(commands.Cog):
 
             # If the action was confirmed, restart the code
             if view.value:
-                for command in self.bot.commands:
-                    if command.name.lower() == name.lower():
-                        command.update(enabled = True)
-                        break
+                command = ctx.bot.get_command(name)
+                command.enabled = True
 
                 embed = await Success(f"{command} was enabled")
                 await view.response.edit(embed = embed)
