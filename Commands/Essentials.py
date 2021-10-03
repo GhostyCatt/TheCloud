@@ -56,12 +56,26 @@ class Essentials(commands.Cog):
         await Success(f"Coming Soon", ctx)
 
     
-    @commands.command(name = "Website", aliases = ["Web"])
-    @commands.cooldown(1, Options['Cooldown'], commands.BucketType.member)
-    async def  website(self, ctx:commands.Context):
-        """Get a link to our website"""
+    @commands.command(name = "Suggest", aliases = ["Sugg", "Rec", "Recommend"])
+    @commands.cooldown(1, 3600, commands.BucketType.member)
+    async def  suggest(self, ctx:commands.Context, *, suggestion:str):
+        """Send a suggestion"""
         await ctx.channel.trigger_typing()
-        await Success(f"Coming Soon", ctx)
+        
+        # Get channel and make embed
+        channel = ctx.guild.get_channel(Options['Channels']['Suggestions'])
+        embed = await Custom(
+            title = f"{ctx.author}'s Suggestion",
+            description = suggestion
+        )
+
+        # Send embed and add reactions
+        message = await channel.send(embed = embed)
+        await message.add_reaction('👍')
+        await message.add_reaction('👎')
+        
+        # Send success embed
+        await Success(f"Your suggestion was recorded! You can suggest again in `1 hour`", ctx)
 
 # Setup the bot
 def setup(bot:commands.Bot):
