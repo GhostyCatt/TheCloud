@@ -209,7 +209,64 @@ class Developer(commands.Cog):
                 embed = await Fail(f"Cancelled")
                 await view.response.edit(embed = embed)
         except:pass
+
     
+    @commands.command(name = "Disable")
+    @commands.cooldown(1, 10, commands.BucketType.member)
+    async def  disable(self, ctx: commands.Context, name:str):
+        """Disable a command."""
+        await ctx.channel.trigger_typing()
+
+        # Create a message with the confirm view and send it
+        view = Confirm(ctx)
+        embed = await Success(f"Are you sure you want to disable {name}?")
+        view.response = await ctx.send(embed = embed, view = view)
+
+        try:
+            await view.wait()
+
+            # If the action was confirmed, restart the code
+            if view.value:
+                for command in self.bot.commands:
+                    if command.name.lower() == name.lower():
+                        command.update(enabled = False)
+                        break
+
+                embed = await Success(f"{command} was disabled")
+                await view.response.edit(embed = embed)
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
+        except:pass
+    
+
+    @commands.command(name = "Enable")
+    @commands.cooldown(1, 10, commands.BucketType.member)
+    async def  enable(self, ctx: commands.Context, name:str):
+        """Enable a command."""
+        await ctx.channel.trigger_typing()
+
+        # Create a message with the confirm view and send it
+        view = Confirm(ctx)
+        embed = await Success(f"Are you sure you want to enable {name}?")
+        view.response = await ctx.send(embed = embed, view = view)
+
+        try:
+            await view.wait()
+
+            # If the action was confirmed, restart the code
+            if view.value:
+                for command in self.bot.commands:
+                    if command.name.lower() == name.lower():
+                        command.update(enabled = True)
+                        break
+
+                embed = await Success(f"{command} was enabled")
+                await view.response.edit(embed = embed)
+            else:
+                embed = await Fail(f"Cancelled")
+                await view.response.edit(embed = embed)
+        except:pass
 
 # Setup the bot
 def setup(bot:commands.Bot):
