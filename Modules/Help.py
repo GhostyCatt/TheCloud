@@ -82,7 +82,7 @@ class Help(commands.HelpCommand):
     async def get_group_help_embed(self, group:commands.Group) -> nextcord.Embed:
         """Get group help embed"""
         subcommands = ''
-        for subcommand in group.walk_commands():
+        for subcommand in group.commands:
             subcommands += f"{self.get_command_signature(subcommand)}\n"
         helpstring = group.help[:200] if group.help else 'No description provided'
         embed = await Custom(
