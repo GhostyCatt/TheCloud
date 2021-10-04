@@ -23,9 +23,14 @@ class VerifyView(View):
     async def  verify(self, button: nextcord.ui.Button, interaction: nextcord.Interaction):
         Guild = self.bot.get_guild(Options['Guild']['ID'])
         MemberRole = Guild.get_role(Options['Roles']['Member'])
+        MutedRole = Guild.get_role(Options['Roles']['Muted'])
 
         if MemberRole in interaction.user.roles:
             embed = await Fail("You have already verified!")
+            await interaction.response.send_message(embed = embed, ephemeral = True)
+            return
+        elif MutedRole in interaction.user.roles:
+            embed = await Fail("You're muted! You can't verify!")
             await interaction.response.send_message(embed = embed, ephemeral = True)
             return
         
