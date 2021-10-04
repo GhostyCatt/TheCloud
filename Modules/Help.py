@@ -103,7 +103,7 @@ class Help(commands.HelpCommand):
         """Send overall help"""
         embed = await self.get_help_embed(mapping)
         view = HelpView(self, await self.get_select_options())
-        await self.context.channel.send(embed = embed, view = view)
+        view.response = await self.context.channel.send(embed = embed, view = view)
 
     async def send_cog_help(self, cog:commands.Cog):
         """Send module specific help"""

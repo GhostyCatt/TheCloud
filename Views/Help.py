@@ -25,6 +25,8 @@ class HelpView(View):
     def __init__(self, help, options):
         super().__init__(timeout = 30)
         self.helpcommand = help
+
+        self.response = None
         
         self.add_item(nextcord.ui.Button(label = "Website", url = Options['Website'], row = 1))
         self.add_item(nextcord.ui.Button(label = "Info", url = "https://discord.com/channels/886521228586803210/886547284815409173/", row = 1))
