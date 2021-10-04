@@ -58,7 +58,7 @@ class Help(commands.HelpCommand):
             description = f"⚙️ {cog.description if cog.description else 'No description provided'}"
         )
         for command in cog.walk_commands():
-            if isinstance(command, commands.Group): pass
+            if command.parent: pass
             else: embed.add_field(name = command.name, value = command.help[:50] if command.help else "No description provided")
         
         embed.set_thumbnail(url = "https://cdn.discordapp.com/app-icons/886600985307410522/0a5e4d170d3603933f26e391c0573278.png?size=512")
@@ -83,15 +83,16 @@ class Help(commands.HelpCommand):
         """Get group help embed"""
         subcommands = ''
         for subcommand in group.commands:
-            subcommands += f"{self.get_command_signature(subcommand)}\n"
+            subcommands += f"`{Options['Prefix']}{subcommand}`\n"
+        
         helpstring = group.help[:200] if group.help else 'No description provided'
         embed = await Custom(
             title = f"🛠️ {group.name.capitalize()}",
-            description = f"{helpstring}\n\n{subcommand}"
+            description = f"{helpstring}\n\n{subcommands}"
         )
         embed.add_field(name = "Aliases", value = "No aliases" if group.aliases == [] else group.aliases, inline = False)
-        embed.add_field(name = "Enabled", value = "✔️" if group.enabled else '`❌`')
-        embed.add_field(name = "Cooldown Active", value = "✔️" if group.is_on_cooldown(self.context) else '`❌`')
+        embed.add_field(name = "Enabled", value = "`✔️`" if group.enabled else '`❌`')
+        embed.add_field(name = "Cooldown Active", value = "`✔️`" if group.is_on_cooldown(self.context) else '`❌`')
         embed.add_field(name = "Module", value = f"`{group.cog.qualified_name}`" if group.cog else 'No parent module')
 
         embed.set_thumbnail(url = "https://cdn.discordapp.com/app-icons/886600985307410522/0a5e4d170d3603933f26e391c0573278.png?size=512")
