@@ -81,18 +81,19 @@ class Help(commands.HelpCommand):
     
     async def get_group_help_embed(self, group:commands.Group) -> nextcord.Embed:
         """Get group help embed"""
+        subcommands = ''
+        for subcommand in group.walk_commands():
+            subcommands += f"{self.get_command_signature(subcommand)}\n"
+        helpstring = group.help[:200] if group.help else 'No description provided'
         embed = await Custom(
             title = f"🛠️ {group.name.capitalize()}",
-            description = group.help[:200] if group.help else 'No description provided'
+            description = f"{helpstring}\n\n{subcommand}"
         )
         embed.add_field(name = "Aliases", value = "No aliases" if group.aliases == [] else group.aliases, inline = False)
         embed.add_field(name = "Enabled", value = "✔️" if group.enabled else '`❌`')
         embed.add_field(name = "Cooldown Active", value = "✔️" if group.is_on_cooldown(self.context) else '`❌`')
         embed.add_field(name = "Module", value = f"`{group.cog.qualified_name}`" if group.cog else 'No parent module')
 
-        subcommands = ''
-        for subcommand in group.walk_commands():
-            subcommands += f"{self.get_command_signature(subcommand)}\n"
         embed.set_thumbnail(url = "https://cdn.discordapp.com/app-icons/886600985307410522/0a5e4d170d3603933f26e391c0573278.png?size=512")
         return embed
 
