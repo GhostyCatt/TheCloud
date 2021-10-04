@@ -1,7 +1,6 @@
 # Library Imports
 import nextcord, json, os, sys
 from nextcord.ext import commands
-from nextcord.ext.commands.flags import F
 
 # Custom Imports
 from Functions.Embed import *
@@ -169,12 +168,19 @@ class Admin(commands.Cog):
         if keyword == None:
             with open('Assets/Rules.txt', 'r', encoding = 'utf-8') as RulesFile:
                 content = RulesFile.read()
-                await Success(content, ctx)
+                sections = content.split("━━━━━━━━━━━━━━━━━━━━")
+                for section in sections:
+                    embed = nextcord.Embed(description = section, color = nextcord.Colour.blurple())
+                    await ctx.send(embed = embed)
                 return
         
         # Open the rules file and get a list of lines that matched
         with open('Assets/Rules.txt', 'r', encoding = 'utf-8') as RulesFile:
-            match = [line for line in RulesFile if keyword in line]
+            match = []
+            for line in RulesFile:
+                if keyword in line:
+                    if line.startswith(("━", "**₊")): pass
+                    else: match.append(line)
         
         # If no lines matched the search criteria, send fail embed
         if match == []:
